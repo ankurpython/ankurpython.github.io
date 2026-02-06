@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ankur Saurabh - Backend Engineer & Product Architect specializing in AI platforms, blockchain, and distributed systems">
+    <meta name="keywords" content="Backend Engineer, Python Developer, Django, AI, Blockchain, Dubai">
+    <meta name="author" content="Ankur Saurabh">
+    <title>Ankur Saurabh | Backend Engineer & Product Architect</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy: #0a192f;
+            --light-navy: #112240;
+            --lightest-navy: #233554;
+            --navy-shadow: rgba(2, 12, 27, 0.7);
+            --slate: #8892b0;
+            --light-slate: #a8b2d1;
+            --lightest-slate: #ccd6f6;
+            --white: #e6f1ff;
+            --green: #64ffda;
+            --green-tint: rgba(100, 255, 218, 0.1);
+            --pink: #f57dff;
+            --blue: #57cbff;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--slate) var(--navy);
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--slate);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--light-slate);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--navy);
+            color: var(--slate);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background-color: var(--green-tint);
+            color: var(--green);
+        }
+
+        /* Scroll Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--green);
+            transform-origin: 0%;
+            z-index: 9999;
+            box-shadow: 0 0 10px var(--green);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 25, 47, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            box-shadow: 0 10px 30px -10px var(--navy-shadow);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 1rem 0;
+            box-shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.9);
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '<';
+            color: var(--green);
+        }
+
+        .logo::after {
+            content: '/>';
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--slate);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '0' counter(item) '.';
+            counter-increment: item;
+            color: var(--green);
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--green);
+        }
+
+        .nav-links {
+            counter-reset: item;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 3rem;
+            margin-top: -80px;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+        }
+
+        .hero-greeting {
+            font-family: var(--font-mono);
+            color: var(--green);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: var(--lightest-slate);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards 0.1s;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--slate);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards 0.2s;
+        }
+
+        .hero-description {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards 0.3s;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            gap: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.6s ease forwards 0.4s;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--green);
+            background: transparent;
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--green-tint);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.5);
+        }
+
+        .btn-primary {
+            background: var(--green);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--green);
+        }
+
+        /* Sections */
+        section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 3rem;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--lightest-slate);
+            margin-bottom: 3rem;
+            white-space: nowrap;
+        }
+
+        .section-title::before {
+            content: '0' counter(section) '.';
+            counter-increment: section;
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 300px;
+            height: 1px;
+            background: var(--lightest-navy);
+            margin-left: 2rem;
+        }
+
+        body {
+            counter-reset: section;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .about-text a {
+            color: var(--green);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .about-text a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background: var(--green);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .about-text a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .skill-item {
+            display: flex;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--slate);
+        }
+
+        .skill-item::before {
+            content: '▹';
+            color: var(--green);
+            font-size: 1.2rem;
+            margin-right: 0.8rem;
+        }
+
+        .about-image {
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--green);
+            border-radius: 4px;
+            top: 20px;
+            left: 20px;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .about-image:hover::before {
+            top: 15px;
+            left: 15px;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 4px;
+            filter: grayscale(100%) contrast(1);
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            filter: none;
+        }
+
+        /* Experience Section */
+        .experience-tabs {
+            display: flex;
+            gap: 0;
+            border-left: 2px solid var(--lightest-navy);
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--slate);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            text-align: left;
+            transition: var(--transition);
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+        }
+
+        .tab-btn:hover {
+            background: var(--light-navy);
+            color: var(--green);
+        }
+
+        .tab-btn.active {
+            color: var(--green);
+            border-left-color: var(--green);
+            background: var(--light-navy);
+        }
+
+        .experience-content {
+            display: none;
+        }
+
+        .experience-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .experience-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--lightest-slate);
+        }
+
+        .experience-title .company {
+            color: var(--green);
+        }
+
+        .experience-period {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--slate);
+            margin-top: 0.5rem;
+        }
+
+        .experience-list {
+            list-style: none;
+        }
+
+        .experience-list li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        .experience-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-size: 1.2rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--light-navy);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: var(--transition);
+            border: 1px solid var(--lightest-navy);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -15px var(--navy-shadow);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--lightest-slate);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-type {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-links a {
+            color: var(--slate);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .project-links a:hover {
+            color: var(--green);
+        }
+
+        .project-description {
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--green-tint);
+            color: var(--green);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+
+        /* Architecture Diagram */
+        .architecture-box {
+            background: rgba(100, 255, 218, 0.05);
+            border-left: 3px solid var(--green);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .architecture-title {
+            color: var(--green);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .architecture-diagram {
+            color: var(--slate);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        /* Architecture Diagram */
+        .architecture-box {
+            background: rgba(100, 255, 218, 0.05);
+            border-left: 3px solid var(--green);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .architecture-title {
+            color: var(--green);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .architecture-diagram {
+            color: var(--slate);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre;
+            padding: 1rem;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 4px;
+        }
+
+        .architecture-diagram::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .architecture-diagram::-webkit-scrollbar-track {
+            background: var(--navy);
+            border-radius: 4px;
+        }
+
+        .architecture-diagram::-webkit-scrollbar-thumb {
+            background: var(--lightest-navy);
+            border-radius: 4px;
+        }
+
+        .architecture-diagram::-webkit-scrollbar-thumb:hover {
+            background: var(--slate);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 3rem;
+            color: var(--lightest-slate);
+            margin-bottom: 1rem;
+        }
+
+        .contact-description {
+            font-size: 1.1rem;
+            color: var(--slate);
+            line-height: 1.7;
+            margin-bottom: 3rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--slate);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            color: var(--green);
+            transform: translateY(-3px);
+        }
+
+        .contact-link i {
+            font-size: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--slate);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--green);
+            text-decoration: none;
+        }
+
+        /* Social Links */
+        .social-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .social-fixed::after {
+            content: '';
+            width: 1px;
+            height: 100px;
+            background: var(--slate);
+        }
+
+        .social-fixed a {
+            color: var(--slate);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-fixed a:hover {
+            color: var(--green);
+            transform: translateY(-3px);
+        }
+
+        .email-fixed {
+            position: fixed;
+            bottom: 0;
+            right: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .email-fixed::after {
+            content: '';
+            width: 1px;
+            height: 100px;
+            background: var(--slate);
+        }
+
+        .email-fixed a {
+            writing-mode: vertical-rl;
+            color: var(--slate);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .email-fixed a:hover {
+            color: var(--green);
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .social-fixed,
+            .email-fixed {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            section {
+                padding: 80px 2rem;
+            }
+
+            .nav-container {
+                padding: 0 2rem;
+            }
+
+            .hero {
+                padding: 0 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: 0;
+                height: 100vh;
+                width: min(75vw, 400px);
+                background: var(--light-navy);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transform: translateX(100%);
+                transition: var(--transition);
+                box-shadow: -10px 0 30px -15px var(--navy-shadow);
+            }
+
+            .nav-links.active {
+                transform: translateX(0);
+            }
+
+            .section-title::after {
+                width: 100px;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-tabs {
+                flex-direction: column;
+                border-left: none;
+                border-top: 2px solid var(--lightest-navy);
+            }
+
+            .tab-btn {
+                border-left: none;
+                border-top: 2px solid transparent;
+                margin-left: 0;
+                margin-top: -2px;
+            }
+
+            .tab-btn.active {
+                border-top-color: var(--green);
+                border-left-color: transparent;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .contact-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-logo {
+            font-family: var(--font-mono);
+            font-size: 3rem;
+            color: var(--green);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">&lt;AS/&gt;</div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">AS</a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn">Resume</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Social Links (Fixed) -->
+    <div class="social-fixed">
+        <a href="https://github.com/ankurpython/" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:ankursaurabh8@gmail.com" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+    </div>
+
+    <!-- Email (Fixed) -->
+    <div class="email-fixed">
+        <a href="mailto:ankursaurabh8@gmail.com">ankursaurabh8@gmail.com</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-greeting">Hi, my name is</p>
+            <h1 class="hero-title">Ankur Saurabh.</h1>
+            <h2 class="hero-subtitle">I build intelligent systems that scale.</h2>
+            <p class="hero-description">
+                I'm a backend engineer specializing in building (and occasionally designing) exceptional
+                distributed systems. Currently, I'm focused on building AI-first platforms at
+                <a href="#" style="color: var(--green); text-decoration: none;">WisdomAI</a> in Dubai.
+            </p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    Get In Touch <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#projects" class="btn">
+                    View My Work <i class="fas fa-code"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    Hello! I'm Ankur, a backend engineer with <strong>6+ years</strong> of experience designing
+                    and developing high-quality web applications, including 2 years managing and leading development teams.
+                    My journey in software development started with a passion for solving complex problems through code.
+                </p>
+                <p>
+                    Currently, I'm a <strong>Backend Engineer & Product Architect</strong> at WisdomAI, where I lead
+                    backend architecture and MVP development of an AI-first real estate platform. I've built distributed
+                    services powering AI listing creation, document intelligence, CRM, analytics, and designed AI-enabled
+                    pipelines for property valuation and multilingual content generation.
+                </p>
+                <p>
+                    Previously, I've worked across blockchain infrastructure, high-frequency crypto trading systems,
+                    and cross-chain bridges at companies including MidChains and TNC IT Blockchain Solution. These
+                    experiences have shaped how I think about building distributed systems that are both well-architected
+                    and production-ready.
+                </p>
+                <p>Here are some technologies I've been working with recently:</p>
+                <div class="skills-grid">
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">Django</div>
+                    <div class="skill-item">Flask</div>
+                    <div class="skill-item">PostgreSQL</div>
+                    <div class="skill-item">Redis</div>
+                    <div class="skill-item">Celery</div>
+                    <div class="skill-item">Docker</div>
+                    <div class="skill-item">AWS</div>
+                    <div class="skill-item">Web3.py</div>
+                    <div class="skill-item">REST API</div>
+                    <div class="skill-item">Microservices</div>
+                    <div class="skill-item">AI/ML Integration</div>
+                </div>
+            </div>
+            <div class="about-image">
+                <img src="https://via.placeholder.com/300x300/0a192f/64ffda?text=AS" alt="Ankur Saurabh">
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <h2 class="section-title">Where I've Worked</h2>
+        <div class="experience-container">
+            <div class="experience-tabs">
+                <button class="tab-btn active" data-tab="wisdom">WisdomAI</button>
+                <button class="tab-btn" data-tab="midchains">MidChains</button>
+                <button class="tab-btn" data-tab="tnc">TNC IT</button>
+                <button class="tab-btn" data-tab="maaa">MAAA Info</button>
+            </div>
+
+            <div class="experience-content active" id="wisdom">
+                <div class="experience-header">
+                    <h3 class="experience-title">
+                        Backend Engineer & Product Architect <span class="company">@ WisdomAI</span>
+                    </h3>
+                    <p class="experience-period">June 2025 - Present</p>
+                </div>
+                <ul class="experience-list">
+                    <li>Leading backend architecture and MVP development of AI-first real estate platform modernizing agent workflows and investment access in Dubai</li>
+                    <li>Built distributed backend services powering AI listing creation, document intelligence, CRM, analytics, and multi-portal publishing</li>
+                    <li>Designed AI-enabled pipelines for property valuation, ROI analysis, SEO scoring, and multilingual content generation</li>
+                    <li>Developed infrastructure for fractional real estate investing with SPV-style tracking and secure wallet flows</li>
+                    <li>Owned system design focusing on low-latency APIs, scalability, and fault tolerance</li>
+                </ul>
+            </div>
+
+            <div class="experience-content" id="midchains">
+                <div class="experience-header">
+                    <h3 class="experience-title">
+                        Senior Software Developer (Backend) <span class="company">@ MidChains</span>
+                    </h3>
+                    <p class="experience-period">December 2022 - Present</p>
+                </div>
+                <ul class="experience-list">
+                    <li>Architected automated backend system for real-time crypto trades interfacing with exchanges like Coinbase</li>
+                    <li>Developed OTC Trading Platform from scratch with three portals: Client, Trading, and Custody</li>
+                    <li>Engineered Heart of Europe Exchange backend with wallet generation, multi-pair trading, 2FA, and IP blocking</li>
+                    <li>Designed scalable Midpay payment gateway enabling merchants to accept crypto with dynamic pricing</li>
+                    <li>Implemented secure vault management and multi-party approval workflows</li>
+                </ul>
+            </div>
+
+            <div class="experience-content" id="tnc">
+                <div class="experience-header">
+                    <h3 class="experience-title">
+                        Python/Django Developer <span class="company">@ TNC IT Blockchain Solution</span>
+                    </h3>
+                    <p class="experience-period">July 2021 - November 2022</p>
+                </div>
+                <ul class="experience-list">
+                    <li>Built ABBC SWAP Portal bridging tokens from EOS to ERC20, BEP20 networks with Web3.py</li>
+                    <li>Developed Bitstorm Exchange with Redis-based order matching and multi-network support</li>
+                    <li>Implemented two-step admin approval processes and blockchain transaction validation</li>
+                    <li>Architected Redis pipelines: User Trade → Preprocessing → Match Engine → Post Process → Database</li>
+                </ul>
+            </div>
+
+            <div class="experience-content" id="maaa">
+                <div class="experience-header">
+                    <h3 class="experience-title">
+                        Software Engineer - Python <span class="company">@ MAAA Info Services</span>
+                    </h3>
+                    <p class="experience-period">June 2018 - June 2020</p>
+                </div>
+                <ul class="experience-list">
+                    <li>Built backend systems for e-learning and e-commerce platforms using Python and Django</li>
+                    <li>Developed Content Management System with course catalog, student registration, and enrollment management</li>
+                    <li>Created full-fledged e-commerce application with product catalog and shopping cart</li>
+                    <li>Implemented caching mechanisms and wrote comprehensive unit tests using PyUnit</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <!-- WisdomAI Platform -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <p class="project-type">AI-First Real Estate</p>
+                        <h3 class="project-title">WisdomAI Platform</h3>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="External Link"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <p class="project-description">
+                    Leading backend architecture of an AI-first real estate platform that modernizes agent workflows
+                    and democratizes property investment in Dubai. Built distributed microservices powering AI-driven
+                    listing creation, document intelligence, CRM, analytics, and fractional real estate investing infrastructure.
+                </p>
+
+                <div class="architecture-box">
+                    <h4 class="architecture-title">AI-POWERED PLATFORM ARCHITECTURE</h4>
+                    <div class="architecture-diagram">┌─────────────────────────────────────────────────────────────┐
+│                    API Gateway Layer                         │
+│              (Load Balancing • Rate Limiting)                │
+└────┬──────────────┬────────────────┬────────────────────────┘
+     │              │                │
+     ▼              ▼                ▼
+┌──────────┐  ┌──────────┐    ┌─────────────────┐
+│ AI Listing│  │Document  │    │ CRM & Analytics │
+│ Service   │  │Intel Svc │    │ Service         │
+└─────┬─────┘  └────┬─────┘    └────────┬────────┘
+      │             │                   │
+      │    ┌────────┴────────┐          │
+      │    │                 │          │
+      ▼    ▼                 ▼          ▼
+┌──────────────────────────────────────────────┐
+│         AI/ML Pipeline Services              │
+│                                              │
+│  ┌─────────────────────────────────────┐    │
+│  │  Property Valuation Engine          │    │
+│  │  • Comparable analysis              │    │
+│  │  • Market trend prediction          │    │
+│  │  • Location scoring                 │    │
+│  └─────────────────────────────────────┘    │
+│                                              │
+│  ┌─────────────────────────────────────┐    │
+│  │  ROI Analysis Engine                │    │
+│  │  • Cash flow projections            │    │
+│  │  • Rental yield calculation         │    │
+│  │  • Investment risk scoring          │    │
+│  └─────────────────────────────────────┘    │
+│                                              │
+│  ┌─────────────────────────────────────┐    │
+│  │  Content Generation                 │    │
+│  │  • SEO-optimized descriptions       │    │
+│  │  • Multilingual translation         │    │
+│  │  • Auto-tagging & categorization    │    │
+│  └─────────────────────────────────────┘    │
+└───────────────────┬──────────────────────────┘
+                    │
+                    ▼
+┌──────────────────────────────────────────────┐
+│     Fractional Investment Infrastructure      │
+│                                              │
+│  • SPV-style Investment Tracking            │
+│  • Investor Portfolio Management            │
+│  • Secure Wallet Flows                      │
+│  • Dividend Distribution                    │
+│  • Share Trading & Liquidity               │
+└───────────────────┬──────────────────────────┘
+                    │
+          ┌─────────┴─────────┐
+          ▼                   ▼
+┌──────────────────┐  ┌─────────────────────┐
+│  Third-Party     │  │  External Data      │
+│  Portal          │  │  Sources            │
+│  Integration     │  │                     │
+│  • Bayut         │  │  • Market Intel     │
+│  • Property Finder│  │  • Price Indexes    │
+│  • Dubizzle      │  │  • Analytics APIs   │
+└──────────────────┘  └─────────────────────┘
+
+         ┌────────────────────────┐
+         │   PostgreSQL Cluster   │
+         │  • Property Data       │
+         │  • User Profiles       │
+         │  • Investments         │
+         │  • Analytics Warehouse │
+         └────────────────────────┘</div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">AI/ML</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Celery</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Docker</span>
+                </div>
+            </div>
+
+            <!-- MidChains Auto Execution -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <p class="project-type">High-Frequency Trading</p>
+                        <h3 class="project-title">MidChains Auto Execution</h3>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <p class="project-description">
+                    Built an intelligent automated trading system that interfaces directly with external exchanges
+                    (Coinbase) to execute real-time crypto trades with optimal pricing. The system implements
+                    sophisticated profit maximization logic and secure fund management through an internal vault architecture.
+                </p>
+
+                <div class="architecture-box">
+                    <h4 class="architecture-title">TRADING FLOW ARCHITECTURE</h4>
+                    <div class="architecture-diagram">┌─────────────────┐
+│  Client Request │  (Buy/Sell Order)
+│   Trading Team  │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────────────────────────────────────┐
+│         MidChains Auto Execution Engine          │
+│                                                   │
+│  1. Order Validation & Risk Check                │
+│  2. Price Discovery (Multiple Exchanges)         │
+│  3. Profit Calculation Logic                     │
+└────────┬────────────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────────────┐
+│           Coinbase Exchange API                  │
+│  • Real-time Price Feed                          │
+│  • Order Execution                               │
+│  • Trade Confirmation                            │
+└────────┬────────────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────────────┐
+│         Profit Optimization Engine               │
+│                                                   │
+│  Internal Price - Exchange Price = Profit        │
+│                                                   │
+│  Example:                                        │
+│  Client pays:     $50,000 (Internal rate)        │
+│  Coinbase cost:   $49,800 (Market rate)          │
+│  Profit:          $200 → House Vault             │
+└────────┬────────────────────────────────────────┘
+         │
+    ┌────┴────┐
+    ▼         ▼
+┌─────────┐ ┌──────────────┐
+│  House  │ │   Client     │
+│  Vault  │ │   Wallet     │
+│ (Profit)│ │ (Crypto Recv)│
+└─────────┘ └──────────────┘
+
+         ┌──────────────────────┐
+         │   Celery Workers      │
+         │  • Transaction Log    │
+         │  • Reconciliation     │
+         │  • Audit Trail        │
+         └──────────────────────┘</div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Celery</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Coinbase API</span>
+                </div>
+            </div>
+
+            <!-- OTC Trading Platform -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <p class="project-type">Enterprise Solution</p>
+                        <h3 class="project-title">OTC Trading Platform</h3>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <p class="project-description">
+                    Developed a comprehensive OTC (Over-The-Counter) trading platform from scratch with three independent
+                    portals serving different user roles. The system handles the complete lifecycle of crypto/fiat trading
+                    with institutional-grade security and compliance.
+                </p>
+
+                <div class="architecture-box">
+                    <h4 class="architecture-title">SYSTEM ARCHITECTURE</h4>
+                    <div class="architecture-diagram">┌─────────────────────────────────────────────────────────────────────┐
+│                         CLIENT PORTAL                                │
+│  • Place Orders        • Generate Wallets    • Bank Details          │
+│  • Withdraw Funds      • Accept Quotes       • Authentication (2FA)  │
+└────────────────┬────────────────────────────────────────────────────┘
+                 │
+                 ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                    DJANGO REST API LAYER                             │
+│              (JWT Auth • Rate Limiting • Validation)                 │
+└────┬────────────────────────┬────────────────────────┬──────────────┘
+     │                        │                        │
+     ▼                        ▼                        ▼
+┌──────────────┐    ┌──────────────────┐    ┌─────────────────────┐
+│   TRADING    │    │     CUSTODY      │    │  WALLET SERVICE     │
+│   PORTAL     │    │     PORTAL       │    │  (3rd Party API)    │
+│              │    │                  │    │                     │
+│ • View Orders│    │ • KYC Onboard    │    │ • Generate Address  │
+│ • Execute    │    │ • Bank Mgmt      │    │ • Check Balance     │
+│ • Send Quote │    │ • FIAT Deposit   │    │ • Process Withdraw  │
+└──────┬───────┘    └────────┬─────────┘    └──────────┬──────────┘
+       │                     │                          │
+       └─────────────────────┴──────────────────────────┘
+                             │
+                             ▼
+              ┌──────────────────────────────┐
+              │    PostgreSQL Database        │
+              │  • Orders  • Users  • Wallets │
+              │  • Transactions  • KYC Data   │
+              └──────────────┬────────────────┘
+                             │
+              ┌──────────────┴────────────────┐
+              │         Celery Workers         │
+              │  • Email Notifications         │
+              │  • Withdrawal Processing       │
+              │  • Transaction Reconciliation  │
+              └────────────────────────────────┘</div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">JWT</span>
+                    <span class="tech-tag">Celery</span>
+                </div>
+            </div>
+
+            <!-- ABBC SWAP Portal -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <p class="project-type">Cross-Chain Bridge</p>
+                        <h3 class="project-title">ABBC SWAP Portal</h3>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <p class="project-description">
+                    Built a secure cross-chain token bridge enabling seamless asset transfers from EOS blockchain to
+                    ERC20, BEP20, and other EVM-compatible networks. Implemented Web3.py for smart contract interactions
+                    with comprehensive blockchain validation and two-tier admin approval workflow.
+                </p>
+
+                <div class="architecture-box">
+                    <h4 class="architecture-title">CROSS-CHAIN BRIDGE FLOW</h4>
+                    <div class="architecture-diagram">┌──────────────────────┐
+│  User Initiates Swap │
+│  EOS → ERC20/BEP20   │
+└──────────┬───────────┘
+           │
+           ▼
+┌─────────────────────────────────────────┐
+│         Deposit EOS Tokens              │
+│  • User sends to EOS bridge address     │
+│  • Include unique memo for tracking     │
+└──────────┬──────────────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────────────┐
+│    Backend Detection Service            │
+│  • Monitor EOS blockchain via RPC       │
+│  • Validate transaction on-chain        │
+│  • Verify memo & amount                 │
+│  • Calculate conversion amount          │
+└──────────┬──────────────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────────────┐
+│     Admin Approval (Level 1)            │
+│  • Review transaction details           │
+│  • Verify receiving address             │
+│  • Check for suspicious activity        │
+└──────────┬──────────────────────────────┘
+           │ APPROVED
+           ▼
+┌─────────────────────────────────────────┐
+│     Admin Approval (Level 2)            │
+│  • Secondary verification               │
+│  • Final authorization                  │
+└──────────┬──────────────────────────────┘
+           │ APPROVED
+           ▼
+┌─────────────────────────────────────────┐
+│   Smart Contract Interaction            │
+│   (Web3.py)                              │
+│                                          │
+│  1. Connect to target network            │
+│  2. Call mint/transfer function          │
+│  3. Send transaction                     │
+│  4. Wait for confirmation                │
+└──────────┬──────────────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────────────┐
+│   Blockchain Validation                  │
+│  • Verify transaction on-chain           │
+│  • Check token balance updated           │
+│  • Confirm in user wallet                │
+└──────────┬──────────────────────────────┘
+           │
+           ▼
+┌─────────────────────────────────────────┐
+│   Update Database & Notify User         │
+│  • Record swap completion                │
+│  • Send confirmation email               │
+│  • Update swap history                   │
+└──────────────────────────────────────────┘
+
+     EOS Network              Target Network
+     ────────────             ──────────────
+     ABBC Token    ──────►    BABBC Token
+                   (Bridge)   (ERC20/BEP20)</div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Web3.py</span>
+                    <span class="tech-tag">Smart Contracts</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">EOS</span>
+                </div>
+            </div>
+
+            <!-- Bitstorm Exchange -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <p class="project-type">Crypto Exchange</p>
+                        <h3 class="project-title">Bitstorm Exchange</h3>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <p class="project-description">
+                    Multi-network cryptocurrency exchange supporting BSC, ERC20, and multiple blockchain networks.
+                    Architected a high-performance Redis-based order matching engine capable of processing thousands
+                    of trades per second with minimal latency.
+                </p>
+
+                <div class="architecture-box">
+                    <h4 class="architecture-title">ORDER MATCHING PIPELINE</h4>
+                    <div class="architecture-diagram">┌──────────────┐
+│  User Places │
+│  Trade Order │
+└──────┬───────┘
+       │
+       ▼
+┌─────────────────────────────────────┐
+│         Redis Queue (1)              │
+│      "pending_orders"                │
+└──────┬──────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────────────┐
+│    Pre-Processing Service            │
+│  • Validate Order                    │
+│  • Check User Balance                │
+│  • Calculate Fees                    │
+│  • Fraud Detection                   │
+└──────┬──────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────────────┐
+│         Redis Queue (2)              │
+│      "validated_orders"              │
+└──────┬──────────────────────────────┘
+       │
+       ▼
+┌─────────────────────────────────────┐
+│    Matching Engine Service           │
+│  • Find Counter Orders               │
+│  • Price-Time Priority               │
+│  • Execute Trades                    │
+│  • Calculate Execution Price         │
+└──────┬──────────────────────────────┘
+       │
+   ┌───┴────┐
+   ▼        ▼
+┌──────┐ ┌──────────────────────────┐
+│ No   │ │    Match Found!          │
+│Match │ │                          │
+└──┬───┘ └──────┬───────────────────┘
+   │            │
+   │            ▼
+   │     ┌──────────────────────────┐
+   │     │   Post-Process Service   │
+   │     │  • Update Balances       │
+   │     │  • Deduct Fees           │
+   │     │  • Generate Receipt      │
+   │     └──────┬───────────────────┘
+   │            │
+   │            ▼
+   │     ┌──────────────────────────┐
+   │     │   PostgreSQL Database    │
+   │     │  • Store Trade           │
+   │     │  • Update Order Book     │
+   │     │  • Transaction History   │
+   │     └──────────────────────────┘
+   │
+   └───► Return to Order Book</div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Blockchain RPC</span>
+                </div>
+            </div>
+
+            <!-- Midpay Payment Gateway -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div>
+                        <p class="project-type">Payment Solution</p>
+                        <h3 class="project-title">Midpay Payment Gateway</h3>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <p class="project-description">
+                    Enterprise-grade Payment Service Provider (PSP) gateway enabling merchants to accept cryptocurrency
+                    payments with seamless fiat conversion. Built scalable multi-merchant architecture with dynamic pricing,
+                    QR code generation, and automated settlement processing.
+                </p>
+
+                <div class="architecture-box">
+                    <h4 class="architecture-title">PAYMENT FLOW ARCHITECTURE</h4>
+                    <div class="architecture-diagram">┌──────────────────┐
+│  Master Merchant │ (Main Account)
+└────────┬─────────┘
+         │
+         ├──► Sub-Merchant A (5% markup)
+         ├──► Sub-Merchant B (3% markup)
+         └──► Sub-Merchant C (7% markup)
+
+Payment Flow:
+─────────────
+
+┌──────────────────┐
+│  Customer visits │
+│  Merchant Website│
+└────────┬─────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│    Midpay API Request                    │
+│  POST /api/create-payment                │
+│  {                                       │
+│    "merchant_id": "ABC123",              │
+│    "amount": 100.00,                     │
+│    "currency": "USD"                     │
+│  }                                       │
+└────────┬────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│   Calculate Final Amount                 │
+│                                          │
+│   Base Price:      $100.00               │
+│   Merchant Markup: +5% ($5.00)           │
+│   Total:           $105.00               │
+│                                          │
+│   Convert to Crypto:                     │
+│   $105 ÷ BTC Price = 0.00235 BTC         │
+└────────┬────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│   Generate QR Code                       │
+│  • Create unique payment address         │
+│  • Encode amount + address in QR         │
+│  • Set expiration time (15 mins)         │
+│  • Return to merchant                    │
+└────────┬────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│   Customer Scans & Pays                  │
+│  (Blockchain transaction initiated)      │
+└────────┬────────────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────────────┐
+│   Celery Worker (Background)             │
+│  • Monitor blockchain for payment        │
+│  • Verify transaction confirmation       │
+│  • Validate amount received              │
+└────────┬────────────────────────────────┘
+         │ CONFIRMED
+         ▼
+┌─────────────────────────────────────────┐
+│   Post-Payment Processing                │
+│                                          │
+│  1. Mark payment as complete             │
+│  2. Convert crypto to FIAT (if needed)   │
+│  3. Calculate fees & commissions         │
+│  4. Settle to merchant account           │
+│  5. Send webhook notification            │
+│  6. Update ledger                        │
+└──────────────────────────────────────────┘
+
+Redis Cache:
+────────────
+• Payment sessions (fast lookup)
+• Exchange rates (1-min TTL)
+• QR code metadata</div>
+                </div>
+
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Django</span>
+                    <span class="tech-tag">Celery</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Webhooks</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <h3 class="contact-title">Let's Build Something Together</h3>
+            <p class="contact-description">
+                I'm currently open to new opportunities and interesting projects. Whether you have a question,
+                want to collaborate, or just want to say hi, feel free to reach out. I'll do my best to get
+                back to you as soon as possible!
+            </p>
+            <a href="mailto:ankursaurabh8@gmail.com" class="btn btn-primary">
+                Say Hello <i class="fas fa-paper-plane"></i>
+            </a>
+            <div class="contact-links">
+                <a href="mailto:ankursaurabh8@gmail.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" class="contact-link">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/ankurpython/" target="_blank" class="contact-link">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Designed & Built by Ankur Saurabh</p>
+        <p style="margin-top: 0.5rem;">📍 Dubai, UAE • B.TECH in Computer Science</p>
+        <p style="margin-top: 1rem; font-size: 0.75rem; opacity: 0.7;">
+            © 2026 Ankur Saurabh. All rights reserved.
+        </p>
+    </footer>
+
+    <script>
+        // Loader
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1000);
+        });
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollPercent = scrollTop / (documentHeight - windowHeight);
+            scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
+        });
+
+        // Experience tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.experience-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                btn.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
