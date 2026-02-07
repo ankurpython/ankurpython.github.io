@@ -9,7 +9,7 @@
     <title>Ankur Saurabh | Backend Engineer & Product Architect</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='70' x='50' text-anchor='middle' font-family='monospace' font-size='32' font-weight='600' fill='%2364ffda'>&lt;AS/&gt;</text></svg>">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -1055,14 +1055,14 @@
         <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" aria-label="LinkedIn">
             <i class="fab fa-linkedin-in"></i>
         </a>
-        <a href="mailto:imankursaurabh@outlook.com" aria-label="Email">
+        <a href="/cdn-cgi/l/email-protection#1b72767a75706e69687a6e697a79735b746e6f7774747035787476" aria-label="Email">
             <i class="fas fa-envelope"></i>
         </a>
     </div>
 
     <!-- Email (Fixed) -->
     <div class="email-fixed">
-        <a href="mailto:imankursaurabh@outlook.com">imankursaurabh@outlook.com</a>
+        <a href="/cdn-cgi/l/email-protection#1a73777b74716f68697b6f687b78725a756f6e7675757134797577"><span class="__cf_email__" data-cfemail="751c18141b1e00070614000714171d351a0001191a1a1e5b161a18">[email&#160;protected]</span></a>
     </div>
 
     <!-- Hero Section -->
@@ -1768,11 +1768,11 @@ Redis Cache:
                 want to collaborate, or just want to say hi, feel free to reach out. I'll do my best to get
                 back to you as soon as possible!
             </p>
-            <a href="mailto:imankursaurabh@outlook.com" class="btn btn-primary">
+            <a href="/cdn-cgi/l/email-protection#ec85818d8287999e9f8d999e8d8e84ac83999880838387c28f8381" class="btn btn-primary">
                 Say Hello <i class="fas fa-paper-plane"></i>
             </a>
             <div class="contact-links">
-                <a href="mailto:imankursaurabh@outlook.com" class="contact-link">
+                <a href="/cdn-cgi/l/email-protection#4e27232f20253b3c3d2f3b3c2f2c260e213b3a22212125602d2123" class="contact-link">
                     <i class="fas fa-envelope"></i>
                     <span>Email</span>
                 </a>
@@ -1802,7 +1802,7 @@ Redis Cache:
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Loader
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
@@ -1941,9 +1941,30 @@ Redis Cache:
                     });
                 }
             });
-        }, { threshold: 0.5 });
+        }, {
+            rootMargin: '-20% 0px -80% 0px'
+        });
 
-        sections.forEach(section => navObserver.observe(section));
+        sections.forEach(section => {
+            navObserver.observe(section);
+        });
+
+        // Add animation class to skills on scroll
+        const skillItems = document.querySelectorAll('.skill-item');
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 50);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        skillItems.forEach(item => {
+            skillObserver.observe(item);
+        });
     </script>
 </body>
 </html>
