@@ -57,12 +57,12 @@
     </script>
 
     <!-- Google Analytics - Get your tracking ID from analytics.google.com -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ET6FXHBZH9"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual ID
+      gtag('config', 'G-ET6FXHBZH9'); // Replace with your actual ID
     </script>
 
     <!-- Fonts -->
@@ -1894,23 +1894,7 @@ Redis Cache:
             rootMargin: '0px 0px -100px 0px'
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-
-
-        document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Complete the observer if it's incomplete
-        const observer = new IntersectionObserver((entries) => {
+        const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
@@ -1920,7 +1904,7 @@ Redis Cache:
         }, observerOptions);
 
         document.querySelectorAll('section').forEach(section => {
-            observer.observe(section);
+            sectionObserver.observe(section);
         });
 
         // Scroll to Top Button
