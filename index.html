@@ -8,12 +8,70 @@
     <meta name="author" content="Ankur Saurabh">
     <title>Ankur Saurabh | Backend Engineer & Product Architect</title>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ankurpython.github.io/">
+    <meta property="og:title" content="Ankur Saurabh | Backend Engineer & Product Architect">
+    <meta property="og:description" content="Backend engineer with 6+ years experience specializing in AI platforms, blockchain, and distributed systems. Building scalable solutions in Dubai.">
+    <meta property="og:image" content="https://ankurpython.github.io/assets/images/profile.jpg">
+
+<!--    &lt;!&ndash; Twitter &ndash;&gt;-->
+<!--    <meta property="twitter:card" content="summary_large_image">-->
+<!--    <meta property="twitter:url" content="https://ankurpython.github.io/">-->
+<!--    <meta property="twitter:title" content="Ankur Saurabh | Backend Engineer & Product Architect">-->
+<!--    <meta property="twitter:description" content="Backend engineer with 6+ years experience specializing in AI platforms, blockchain, and distributed systems.">-->
+<!--    <meta property="twitter:image" content="https://ankurpython.github.io/assets/images/profile.jpg">-->
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Ankur Saurabh",
+      "jobTitle": "Backend Engineer & Product Architect",
+      "url": "https://ankurpython.github.io",
+      "email": "ankursaurabh8@gmail.com",
+      "image": "https://ankurpython.github.io/assets/images/profile.jpg",
+      "sameAs": [
+        "https://github.com/ankurpython",
+        "https://linkedin.com/in/Ankur-Saurabh"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "WisdomAI"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Northern India Engineering College, GGSIPU"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dubai",
+        "addressCountry": "UAE"
+      },
+      "knowsAbout": ["Python", "Django", "AI/ML", "Blockchain", "Distributed Systems", "PostgreSQL", "Redis", "AWS"]
+    }
+    </script>
+
+    <!-- Google Analytics - Get your tracking ID from analytics.google.com -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX'); // Replace with your actual ID
+    </script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 
     <!-- Font Awesome for icons -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -882,6 +940,50 @@
             }
         }
 
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--green);
+            color: var(--navy);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(100, 255, 218, 0.5);
+            background: var(--lightest-slate);
+        }
+
+        @media (max-width: 768px) {
+            .scroll-to-top {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
+
         /* Loading Animation */
         .loader {
             position: fixed;
@@ -1695,6 +1797,11 @@ Redis Cache:
         </p>
     </footer>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script>
         // Loader
         window.addEventListener('load', () => {
@@ -1796,9 +1903,63 @@ Redis Cache:
             });
         }, observerOptions);
 
+
+
         document.querySelectorAll('section').forEach(section => {
             observer.observe(section);
         });
+
+        // Complete the observer if it's incomplete
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Active navigation indicator
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksList = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinksList.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        sections.forEach(section => navObserver.observe(section));
     </script>
 </body>
 </html>
