@@ -2554,7 +2554,10 @@ Redis Cache:
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
 
             document.querySelectorAll('.project-card').forEach(card => {
-                card.style.transform = `translateY(-5px) perspective(1000px) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
+                // Don't apply parallax if hovering over a button
+                if (!e.target.closest('.diagram-toggle')) {
+                    card.style.transform = `translateY(-5px) perspective(1000px) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
+                }
             });
         });
 
@@ -2567,6 +2570,22 @@ Redis Cache:
 
         // Enhanced Architecture Diagram Styling
         document.addEventListener('DOMContentLoaded', () => {
+            // Global toggle function
+            window.toggleDiagram = function(button) {
+                console.log('Toggle function called!');
+                const box = button.closest('.architecture-box');
+                console.log('Box found:', box);
+
+                box.classList.toggle('collapsed');
+                console.log('Collapsed state:', box.classList.contains('collapsed'));
+
+                if (box.classList.contains('collapsed')) {
+                    button.innerHTML = '▼ Show Full Diagram';
+                } else {
+                    button.innerHTML = '▲ Show Less';
+                }
+            };
+
             document.querySelectorAll('.architecture-diagram').forEach(diagram => {
                 let html = diagram.innerHTML;
 
@@ -2618,29 +2637,12 @@ Redis Cache:
                     const toggle = document.createElement('button');
                     toggle.className = 'diagram-toggle';
                     toggle.innerHTML = '▼ Show Full Diagram';
-                    toggle.type = 'button'; // Explicitly set button type
-
-                    toggle.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-
-                        console.log('Toggle clicked!');
-                        console.log('Before toggle - collapsed:', box.classList.contains('collapsed'));
-
-                        box.classList.toggle('collapsed');
-
-                        console.log('After toggle - collapsed:', box.classList.contains('collapsed'));
-
-                        if (box.classList.contains('collapsed')) {
-                            this.innerHTML = '▼ Show Full Diagram';
-                        } else {
-                            this.innerHTML = '▲ Show Less';
-                        }
-                    }, true); // Use capture phase
+                    toggle.type = 'button';
+                    toggle.setAttribute('onclick', 'window.toggleDiagram(this); return false;');
 
                     buttonWrapper.appendChild(toggle);
                     box.appendChild(buttonWrapper);
-                    console.log('Toggle button added');
+                    console.log('Toggle button added with onclick');
                 }
             });
         });
