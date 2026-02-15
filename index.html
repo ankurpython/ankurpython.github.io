@@ -1024,9 +1024,15 @@
         }
 
         .architecture-box.collapsed .architecture-diagram {
-            max-height: 250px;
-            overflow: hidden;
+            max-height: 250px !important;
+            overflow: hidden !important;
             position: relative;
+        }
+
+        .architecture-box .architecture-diagram {
+            max-height: none;
+            overflow-x: auto;
+            overflow-y: visible;
         }
 
         .architecture-box.collapsed .architecture-diagram::after {
@@ -2593,33 +2599,36 @@ Redis Cache:
 
                 // Add expand/collapse toggle for long diagrams
                 const lineCount = diagram.innerHTML.split('\n').length;
+                console.log('Diagram line count:', lineCount); // Debug
+
                 if (lineCount > 30) {
                     const box = diagram.closest('.architecture-box');
                     box.classList.add('collapsed');
 
-                    // Set initial collapsed state with inline styles
-                    diagram.style.maxHeight = '250px';
-                    diagram.style.overflow = 'hidden';
-
                     const toggle = document.createElement('button');
                     toggle.className = 'diagram-toggle';
-                    toggle.textContent = '▼ Show Full Diagram';
-                    toggle.onclick = function(e) {
+                    toggle.innerHTML = '▼ Show Full Diagram';
+
+                    toggle.addEventListener('click', function(e) {
                         e.preventDefault();
+                        e.stopPropagation();
+
+                        console.log('Toggle clicked!'); // Debug
+                        console.log('Before toggle - collapsed:', box.classList.contains('collapsed')); // Debug
+
                         box.classList.toggle('collapsed');
 
+                        console.log('After toggle - collapsed:', box.classList.contains('collapsed')); // Debug
+
                         if (box.classList.contains('collapsed')) {
-                            this.textContent = '▼ Show Full Diagram';
-                            diagram.style.maxHeight = '250px';
-                            diagram.style.overflow = 'hidden';
+                            this.innerHTML = '▼ Show Full Diagram';
                         } else {
-                            this.textContent = '▲ Show Less';
-                            diagram.style.maxHeight = 'none';
-                            diagram.style.overflow = 'visible';
-                            diagram.style.overflowX = 'auto';
+                            this.innerHTML = '▲ Show Less';
                         }
-                    };
+                    });
+
                     box.appendChild(toggle);
+                    console.log('Toggle button added'); // Debug
                 }
             });
         });
