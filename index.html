@@ -750,7 +750,7 @@
             transition: var(--transition-slow);
             border: 1px solid rgba(100, 255, 218, 0.1);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .project-card::before {
@@ -772,13 +772,15 @@
         .project-card::after {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(100, 255, 218, 0.03) 0%, transparent 70%);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 70% 50%, rgba(100, 255, 218, 0.04) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.5s ease;
+            border-radius: 16px;
+            pointer-events: none;
         }
 
         .project-card:hover::after {
@@ -2554,10 +2556,9 @@ Redis Cache:
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
 
             document.querySelectorAll('.project-card').forEach(card => {
-                // Don't apply parallax if hovering over a button
-                if (!e.target.closest('.diagram-toggle')) {
-                    card.style.transform = `translateY(-5px) perspective(1000px) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
-                }
+                // Skip parallax if the pointer is over the diagram area or toggle button
+                if (e.target.closest('.diagram-toggle') || e.target.closest('.architecture-box')) return;
+                card.style.transform = `translateY(-5px) perspective(1000px) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
             });
         });
 
@@ -2568,83 +2569,78 @@ Redis Cache:
             });
         });
 
-        // Enhanced Architecture Diagram Styling
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.architecture-diagram').forEach(diagram => {
+        // Enhanced Architecture Diagram Styling — runs immediately (DOM is ready at script execution time)
+        function initArchitectureDiagrams() {
+            document.querySelectorAll('.architecture-diagram').forEach(function(diagram) {
+                // Skip if already initialised
+                if (diagram.dataset.initialized) return;
+                diagram.dataset.initialized = 'true';
+
                 let html = diagram.innerHTML;
 
                 // Highlight box drawing characters
-                html = html.replace(/([│┌└├┬┴┼─┐┘])/g, '<span style="color: #64ffda; opacity: 0.8;">$1</span>');
-
-                // Highlight arrows and flow indicators with gradient effect
-                html = html.replace(/(▼)/g, '<span style="color: #57cbff; font-weight: bold; text-shadow: 0 0 8px rgba(87, 203, 255, 0.5);">$1</span>');
-                html = html.replace(/(▶|►|▸|→)/g, '<span style="color: #f57dff; font-weight: bold;">$1</span>');
-
-                // Highlight key service names and components
+                html = html.replace(/([│┌└├┬┴┼─┐┘])/g, '<span style="color:#64ffda;opacity:0.8;">$1</span>');
+                // Highlight arrows
+                html = html.replace(/(▼)/g, '<span style="color:#57cbff;font-weight:bold;text-shadow:0 0 8px rgba(87,203,255,0.5);">$1</span>');
+                html = html.replace(/(▶|►|▸|→)/g, '<span style="color:#f57dff;font-weight:bold;">$1</span>');
+                // Key service names
                 html = html.replace(/(API Gateway|Gateway|Service|Engine|Portal|Worker|Database|Redis|PostgreSQL|MySQL|Celery|Django|Blockchain)/gi,
-                    '<span style="color: #64ffda; font-weight: 600;">$1</span>');
-
-                // Highlight infrastructure terms
+                    '<span style="color:#64ffda;font-weight:600;">$1</span>');
+                // Infrastructure terms
                 html = html.replace(/(Load Balancing|Rate Limiting|Cache|Queue|Cluster|Pipeline|Master|Sub-Merchant|Client|Trading|Custody)/gi,
-                    '<span style="color: #a78bfa; font-weight: 500;">$1</span>');
-
-                // Highlight bullet points
-                html = html.replace(/([•])/g, '<span style="color: #57cbff;">$1</span>');
-
-                // Highlight HTTP methods and status keywords
+                    '<span style="color:#a78bfa;font-weight:500;">$1</span>');
+                // Bullet points
+                html = html.replace(/([•])/g, '<span style="color:#57cbff;">$1</span>');
+                // HTTP methods
                 html = html.replace(/(POST|GET|PUT|DELETE|Processing|Confirmed|Approved|CONFIRMED|APPROVED)/gi,
-                    '<span style="color: #ff9a56; font-weight: 600; background: rgba(255, 154, 86, 0.1); padding: 0 4px; border-radius: 2px;">$1</span>');
-
-                // Highlight money/numbers
-                html = html.replace(/(\$[\d,]+\.?\d*)/g, '<span style="color: #64ffda; font-weight: 700;">$1</span>');
-
-                // Highlight percentages
-                html = html.replace(/(\d+%)/g, '<span style="color: #f57dff; font-weight: 600;">$1</span>');
+                    '<span style="color:#ff9a56;font-weight:600;background:rgba(255,154,86,0.1);padding:0 4px;border-radius:2px;">$1</span>');
+                // Money / percentages
+                html = html.replace(/(\$[\d,]+\.?\d*)/g, '<span style="color:#64ffda;font-weight:700;">$1</span>');
+                html = html.replace(/(\d+%)/g, '<span style="color:#f57dff;font-weight:600;">$1</span>');
 
                 diagram.innerHTML = html;
 
-                // Add expand/collapse toggle for long diagrams
-                const lineCount = diagram.innerHTML.split('\n').length;
-                console.log('Diagram line count:', lineCount);
+                // Count lines to decide if we need a toggle
+                const rawText = diagram.textContent || '';
+                const lineCount = rawText.split('\n').length;
 
                 if (lineCount > 30) {
                     const box = diagram.closest('.architecture-box');
+                    if (!box) return;
+
+                    // Start collapsed
                     box.classList.add('collapsed');
 
-                    // Create button wrapper for better positioning
-                    const buttonWrapper = document.createElement('div');
-                    buttonWrapper.style.textAlign = 'center';
-                    buttonWrapper.style.marginTop = '1rem';
-                    buttonWrapper.style.position = 'relative';
-                    buttonWrapper.style.zIndex = '100';
-
+                    // Build the toggle button
                     const toggle = document.createElement('button');
                     toggle.className = 'diagram-toggle';
-                    toggle.innerHTML = '▼ Show Full Diagram';
                     toggle.type = 'button';
+                    toggle.textContent = '▼ Show Full Diagram';
 
-                    // Simple inline click test
-                    toggle.onclick = function() {
-                        console.log('BUTTON CLICKED!!!');
-                        alert('Button click works!');
+                    toggle.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const isCollapsed = box.classList.toggle('collapsed');
+                        toggle.textContent = isCollapsed ? '▼ Show Full Diagram' : '▲ Show Less';
 
-                        box.classList.toggle('collapsed');
-
-                        if (box.classList.contains('collapsed')) {
-                            this.innerHTML = '▼ Show Full Diagram';
-                        } else {
-                            this.innerHTML = '▲ Show Less';
+                        // Smooth scroll so the button stays in view after expanding
+                        if (!isCollapsed) {
+                            setTimeout(function() {
+                                toggle.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }, 100);
                         }
+                    });
 
-                        return false;
-                    };
-
-                    buttonWrapper.appendChild(toggle);
-                    box.appendChild(buttonWrapper);
-                    console.log('Toggle button added with direct onclick function');
+                    // Wrapper keeps the button centred and above any overlays
+                    const wrapper = document.createElement('div');
+                    wrapper.style.cssText = 'text-align:center;margin-top:1.25rem;position:relative;z-index:50;';
+                    wrapper.appendChild(toggle);
+                    box.appendChild(wrapper);
                 }
             });
-        });
+        }
+
+        // Run now (script is deferred / at end of body so DOM is ready)
+        initArchitectureDiagrams();
     </script>
 </body>
 </html>
