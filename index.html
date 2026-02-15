@@ -991,7 +991,7 @@
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .architecture-box::before {
@@ -1060,6 +1060,9 @@
             background: rgba(100, 255, 218, 0.08);
             outline: none;
             user-select: none;
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
 
         .diagram-toggle:hover {
@@ -2599,36 +2602,45 @@ Redis Cache:
 
                 // Add expand/collapse toggle for long diagrams
                 const lineCount = diagram.innerHTML.split('\n').length;
-                console.log('Diagram line count:', lineCount); // Debug
+                console.log('Diagram line count:', lineCount);
 
                 if (lineCount > 30) {
                     const box = diagram.closest('.architecture-box');
                     box.classList.add('collapsed');
 
+                    // Create button wrapper for better positioning
+                    const buttonWrapper = document.createElement('div');
+                    buttonWrapper.style.textAlign = 'center';
+                    buttonWrapper.style.marginTop = '1rem';
+                    buttonWrapper.style.position = 'relative';
+                    buttonWrapper.style.zIndex = '100';
+
                     const toggle = document.createElement('button');
                     toggle.className = 'diagram-toggle';
                     toggle.innerHTML = '▼ Show Full Diagram';
+                    toggle.type = 'button'; // Explicitly set button type
 
                     toggle.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
 
-                        console.log('Toggle clicked!'); // Debug
-                        console.log('Before toggle - collapsed:', box.classList.contains('collapsed')); // Debug
+                        console.log('Toggle clicked!');
+                        console.log('Before toggle - collapsed:', box.classList.contains('collapsed'));
 
                         box.classList.toggle('collapsed');
 
-                        console.log('After toggle - collapsed:', box.classList.contains('collapsed')); // Debug
+                        console.log('After toggle - collapsed:', box.classList.contains('collapsed'));
 
                         if (box.classList.contains('collapsed')) {
                             this.innerHTML = '▼ Show Full Diagram';
                         } else {
                             this.innerHTML = '▲ Show Less';
                         }
-                    });
+                    }, true); // Use capture phase
 
-                    box.appendChild(toggle);
-                    console.log('Toggle button added'); // Debug
+                    buttonWrapper.appendChild(toggle);
+                    box.appendChild(buttonWrapper);
+                    console.log('Toggle button added');
                 }
             });
         });
