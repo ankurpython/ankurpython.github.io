@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Backend Engineer with 7+ years building AI platforms and blockchain systems. Processed $50M+ in crypto transactions, architected systems serving 1,000+ daily users. Expert in Python, Django, AI/ML, distributed systems.">
+    <meta name="description" content="Backend Engineer with 7+ years building AI platforms, blockchain systems, and tokenization projects. Launched THOE and Stream coins, processed $50M+ in crypto transactions. Expert in Python, Django, AI/ML, distributed systems.">
     <meta name="keywords" content="Backend Engineer, Python Developer, Django, AI, Blockchain, Dubai">
     <meta name="author" content="Ankur Saurabh">
     <title>Ankur Saurabh | Backend Engineer - AI Platforms & Blockchain Systems | $50M+ Processed</title>
@@ -68,7 +68,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome for icons -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -92,11 +92,16 @@
             --white: #e6f1ff;
             --green: #64ffda;
             --green-tint: rgba(100, 255, 218, 0.1);
+            --green-glow: rgba(100, 255, 218, 0.2);
             --pink: #f57dff;
             --blue: #57cbff;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-mono: 'Fira Code', monospace;
+            --orange: #ff9a56;
+            --purple: #a78bfa;
+            --font-sans: 'Sora', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --font-body: 'Urbanist', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
             --transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+            --transition-slow: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
         html {
@@ -123,11 +128,26 @@
         }
 
         body {
-            font-family: var(--font-sans);
+            font-family: var(--font-body);
             background: var(--navy);
             color: var(--slate);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(100, 255, 218, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(87, 203, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         ::selection {
@@ -247,6 +267,8 @@
             align-items: center;
             padding: 0 3rem;
             padding-top: 120px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-content {
@@ -256,37 +278,45 @@
         .hero-greeting {
             font-family: var(--font-mono);
             color: var(--green);
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards;
+            letter-spacing: 0.5px;
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            font-weight: 700;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 800;
             color: var(--lightest-slate);
             line-height: 1.1;
             margin-bottom: 1rem;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards 0.1s;
+            font-family: var(--font-sans);
+            letter-spacing: -2px;
         }
 
         .hero-subtitle {
             font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 700;
-            color: var(--slate);
+            background: linear-gradient(135deg, var(--slate) 0%, var(--light-slate) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             line-height: 1.1;
             margin-bottom: 2rem;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards 0.2s;
+            font-family: var(--font-sans);
+            letter-spacing: -1px;
         }
 
         .hero-description {
-            max-width: 600px;
-            font-size: 1.2rem;
+            max-width: 650px;
+            font-size: 1.15rem;
             color: var(--slate);
-            line-height: 1.7;
+            line-height: 1.8;
             margin-bottom: 2rem;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards 0.3s;
@@ -295,6 +325,7 @@
         .hero-description strong {
             color: var(--lightest-slate);
             font-weight: 600;
+            position: relative;
         }
 
         /* Achievement Badges */
@@ -304,31 +335,83 @@
             gap: 1.5rem;
             margin: 2rem 0;
             padding: 2rem;
-            background: rgba(100, 255, 218, 0.05);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 8px;
+            background: rgba(17, 34, 64, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            border-radius: 12px;
             opacity: 0;
             animation: fadeInUp 0.6s ease forwards 0.35s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-badges::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         .badge {
             text-align: center;
-            padding: 1rem;
+            padding: 1.5rem 1rem;
+            background: rgba(35, 53, 84, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: var(--transition-slow);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.15), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-8px) scale(1.05);
+            border-color: var(--green);
+            box-shadow: 0 15px 40px rgba(100, 255, 218, 0.25);
+        }
+
+        .badge:hover::before {
+            left: 100%;
         }
 
         .badge-number {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            color: var(--green);
-            font-family: var(--font-mono);
+            background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: var(--font-sans);
             margin-bottom: 0.5rem;
+            display: block;
         }
 
         .badge-label {
-            font-size: 0.85rem;
-            color: var(--slate);
+            font-size: 0.8rem;
+            color: var(--light-slate);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            font-weight: 600;
         }
 
         .hero-cta {
@@ -347,27 +430,46 @@
             font-size: 0.9rem;
             cursor: pointer;
             text-decoration: none;
-            border-radius: 4px;
-            transition: var(--transition);
+            border-radius: 6px;
+            transition: var(--transition-slow);
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(100, 255, 218, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
             background: var(--green-tint);
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.5);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.4);
         }
 
         .btn-primary {
             background: var(--green);
             color: var(--navy);
+            font-weight: 600;
         }
 
         .btn-primary:hover {
             background: transparent;
             color: var(--green);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.3);
         }
 
         .btn-secondary {
@@ -420,16 +522,19 @@
             max-width: 1000px;
             margin: 0 auto;
             padding: 100px 3rem;
+            position: relative;
+            z-index: 1;
         }
 
         .section-title {
             display: flex;
             align-items: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: var(--lightest-slate);
             margin-bottom: 3rem;
             white-space: nowrap;
+            font-family: var(--font-sans);
         }
 
         .section-title::before {
@@ -437,8 +542,9 @@
             counter-increment: section;
             color: var(--green);
             font-family: var(--font-mono);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             margin-right: 1rem;
+            font-weight: 400;
         }
 
         .section-title::after {
@@ -446,7 +552,7 @@
             display: block;
             width: 300px;
             height: 1px;
-            background: var(--lightest-navy);
+            background: linear-gradient(90deg, rgba(100, 255, 218, 0.3), transparent);
             margin-left: 2rem;
         }
 
@@ -633,20 +739,56 @@
         /* Projects Section */
         .projects-grid {
             display: grid;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .project-card {
-            background: var(--light-navy);
-            border-radius: 8px;
-            padding: 2rem;
-            transition: var(--transition);
-            border: 1px solid var(--lightest-navy);
+            background: linear-gradient(135deg, rgba(17, 34, 64, 0.6) 0%, rgba(35, 53, 84, 0.4) 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: var(--transition-slow);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--green), var(--blue), var(--purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(100, 255, 218, 0.03) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -15px var(--navy-shadow);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(100, 255, 218, 0.15);
+            border-color: rgba(100, 255, 218, 0.3);
         }
 
         .project-header {
@@ -654,21 +796,28 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .project-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--lightest-slate);
             margin-bottom: 0.5rem;
+            font-family: var(--font-sans);
         }
 
         .project-type {
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--green);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            background: rgba(100, 255, 218, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            display: inline-block;
         }
 
         .project-links {
@@ -678,18 +827,29 @@
 
         .project-links a {
             color: var(--slate);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             transition: var(--transition);
+            padding: 0.5rem;
+            background: rgba(100, 255, 218, 0.05);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .project-links a:hover {
             color: var(--green);
+            background: rgba(100, 255, 218, 0.15);
+            transform: translateY(-3px);
         }
 
         .project-description {
             color: var(--slate);
-            line-height: 1.7;
+            line-height: 1.8;
             margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
         }
 
         .tech-stack {
@@ -697,91 +857,243 @@
             flex-wrap: wrap;
             gap: 0.8rem;
             margin-top: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .tech-tag {
-            background: var(--green-tint);
+            background: rgba(100, 255, 218, 0.1);
             color: var(--green);
-            padding: 0.4rem 0.9rem;
-            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             font-size: 0.8rem;
             font-family: var(--font-mono);
             font-weight: 500;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: var(--transition);
         }
 
-        /* Architecture Diagram */
-        .architecture-box {
-            background: rgba(100, 255, 218, 0.05);
-            border-left: 3px solid var(--green);
-            border-radius: 4px;
+        .tech-tag:hover {
+            background: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Key Metrics Showcase */
+        .metrics-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(17, 34, 64, 0.5) 0%, rgba(35, 53, 84, 0.3) 100%);
+            border-radius: 12px;
+            border: 1px solid rgba(100, 255, 218, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .metric-card {
             padding: 1.5rem;
-            margin: 1.5rem 0;
+            background: rgba(35, 53, 84, 0.4);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            transition: var(--transition-slow);
+            text-align: center;
         }
 
-        .architecture-title {
-            color: var(--green);
-            font-size: 0.9rem;
-            font-family: var(--font-mono);
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--green);
+            box-shadow: 0 10px 30px rgba(100, 255, 218, 0.2);
+        }
+
+        .metric-icon {
+            font-size: 2.5rem;
             margin-bottom: 1rem;
+            display: block;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--green) 0%, var(--blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-family: var(--font-sans);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--light-slate);
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .architecture-diagram {
+        .metric-description {
+            font-size: 0.85rem;
             color: var(--slate);
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+
+        /* Project Screenshot */
+        .project-screenshot {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(17, 34, 64, 0.8) 0%, rgba(35, 53, 84, 0.6) 100%);
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-screenshot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(45deg, rgba(100, 255, 218, 0.05) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(100, 255, 218, 0.05) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(100, 255, 218, 0.05) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(100, 255, 218, 0.05) 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        }
+
+        .screenshot-placeholder {
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Architecture Diagram */
+        .architecture-box {
+            background: linear-gradient(135deg, rgba(17, 34, 64, 0.6) 0%, rgba(35, 53, 84, 0.4) 100%);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-left: 4px solid var(--green);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--green), var(--blue), var(--purple));
+            opacity: 0.5;
+        }
+
+        .architecture-title {
+            color: var(--green);
+            font-size: 0.85rem;
+            font-family: var(--font-mono);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .architecture-title::before {
+            content: '▸';
+            font-size: 1.2rem;
+        }
+
+        .architecture-box.collapsed .architecture-diagram {
+            max-height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .architecture-box.collapsed .architecture-diagram::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, rgba(10, 25, 47, 0.95));
+            pointer-events: none;
+        }
+
+        .diagram-toggle {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--green);
+            border-radius: 4px;
+            transition: var(--transition);
+            background: rgba(100, 255, 218, 0.05);
+        }
+
+        .diagram-toggle:hover {
+            background: rgba(100, 255, 218, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .architecture-diagram {
+            color: var(--light-slate);
             font-family: var(--font-mono);
             font-size: 0.75rem;
-            line-height: 1.6;
+            line-height: 1.8;
             overflow-x: auto;
             white-space: pre;
-        }
-
-        /* Architecture Diagram */
-        .architecture-box {
-            background: rgba(100, 255, 218, 0.05);
-            border-left: 3px solid var(--green);
-            border-radius: 4px;
             padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .architecture-title {
-            color: var(--green);
-            font-size: 0.9rem;
-            font-family: var(--font-mono);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .architecture-diagram {
-            color: var(--slate);
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            line-height: 1.6;
-            overflow-x: auto;
-            white-space: pre;
-            padding: 1rem;
-            background: rgba(10, 25, 47, 0.5);
-            border-radius: 4px;
+            background: rgba(10, 25, 47, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .architecture-diagram::-webkit-scrollbar {
-            height: 8px;
+            height: 10px;
         }
 
         .architecture-diagram::-webkit-scrollbar-track {
-            background: var(--navy);
-            border-radius: 4px;
+            background: rgba(10, 25, 47, 0.5);
+            border-radius: 8px;
         }
 
         .architecture-diagram::-webkit-scrollbar-thumb {
-            background: var(--lightest-navy);
-            border-radius: 4px;
+            background: linear-gradient(90deg, var(--green), var(--blue));
+            border-radius: 8px;
         }
 
         .architecture-diagram::-webkit-scrollbar-thumb:hover {
-            background: var(--slate);
+            background: var(--green);
+        }
+
+        /* Highlight special characters in diagrams */
+        .architecture-diagram {
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
         }
 
         /* Contact Section */
@@ -1160,14 +1472,14 @@
 <!--        <a href="https://share.streamlit.io/user/ankurpython" target="_blank" aria-label="Live Projects" title="Streamlit Apps">-->
 <!--            <i class="fas fa-rocket"></i>-->
 <!--        </a>-->
-        <a href="mailto:imankursaurabh@outlook.com" aria-label="Email">
+        <a href="/cdn-cgi/l/email-protection#2a43474b44415f58594b5f584b48426a455f5e4645454104494547" aria-label="Email">
             <i class="fas fa-envelope"></i>
         </a>
     </div>
 
     <!-- Email (Fixed) -->
     <div class="email-fixed">
-        <a href="mailto:imankursaurabh@outlook.com">imankursaurabh@outlook.com</a>
+        <a href="/cdn-cgi/l/email-protection#066f6b67686d73747567737467646e466973726a69696d2865696b"><span class="__cf_email__" data-cfemail="cfa6a2aea1a4babdbcaebabdaeada78fa0babba3a0a0a4e1aca0a2">[email&#160;protected]</span></a>
     </div>
 
     <!-- Hero Section -->
@@ -1177,27 +1489,27 @@
             <h1 class="hero-title">Ankur Saurabh.</h1>
             <h2 class="hero-subtitle">I build intelligent systems that scale.</h2>
             <p class="hero-description">
-                Backend engineer specializing in <strong>AI platforms</strong> and <strong>high-frequency blockchain systems</strong>.
-                Built distributed services processing <strong>$50M+ in crypto transactions</strong> and architecting
-                <strong>AI-powered real estate platforms</strong> serving Dubai's property market.
+                Backend engineer specializing in <strong>AI platforms</strong>, <strong>blockchain tokenization</strong>, and <strong>high-frequency trading systems</strong>.
+                Built distributed services processing <strong>$50M+ in crypto transactions</strong>, launched multiple tokenization projects (THOE, Stream Coin),
+                and architected <strong>AI-powered real estate platforms</strong> serving Dubai's property market.
             </p>
 
             <!-- Achievement Highlights -->
             <div class="achievement-badges">
                 <div class="badge">
-                    <div class="badge-number">7+</div>
+                    <div class="badge-number" data-target="7" data-suffix="+">0</div>
                     <div class="badge-label">Years Experience</div>
                 </div>
                 <div class="badge">
-                    <div class="badge-number">15+</div>
+                    <div class="badge-number" data-target="15" data-suffix="+">0</div>
                     <div class="badge-label">Projects Shipped</div>
                 </div>
                 <div class="badge">
-                    <div class="badge-number">$50M+</div>
+                    <div class="badge-number" data-target="50" data-prefix="$" data-suffix="M+">0</div>
                     <div class="badge-label">Transactions Processed</div>
                 </div>
                 <div class="badge">
-                    <div class="badge-number">3</div>
+                    <div class="badge-number" data-target="3">0</div>
                     <div class="badge-label">Exchanges Built</div>
                 </div>
             </div>
@@ -1224,6 +1536,11 @@
                     <p class="highlight-desc">Architected high-frequency trading systems processing over $50 million in cryptocurrency transactions with 99.9% uptime</p>
                 </div>
                 <div class="highlight-card">
+                    <div class="highlight-icon">🏢</div>
+                    <h3 class="highlight-title">Enterprise Clients</h3>
+                    <p class="highlight-desc">Built payment gateway serving major enterprises including <strong>Aldar Properties</strong>, UAE's leading real estate developer, processing $2M+ monthly</p>
+                </div>
+                <div class="highlight-card">
                     <div class="highlight-icon">🤖</div>
                     <h3 class="highlight-title">AI-Powered Platform</h3>
                     <p class="highlight-desc">Built AI-first real estate platform processing 1,000+ listings/day, serving 50+ agencies across Dubai</p>
@@ -1232,11 +1549,6 @@
                     <div class="highlight-icon">⚡</div>
                     <h3 class="highlight-title">Sub-200ms Execution</h3>
                     <p class="highlight-desc">Designed Redis-based order matching engine achieving sub-200ms average execution time for crypto exchanges</p>
-                </div>
-                <div class="highlight-card">
-                    <div class="highlight-icon">🏗️</div>
-                    <h3 class="highlight-title">3 Exchanges Built</h3>
-                    <p class="highlight-desc">Engineered complete crypto exchange platforms from scratch with multi-signature wallets, KYC, and cross-chain support</p>
                 </div>
             </div>
         </div>
@@ -1319,8 +1631,9 @@
                 <ul class="experience-list">
                     <li>Architected <strong>high-frequency trading system processing $50M+ in crypto transactions</strong> with real-time exchange integration (Coinbase, Binance) and sub-second execution</li>
                     <li>Built <strong>OTC Trading Platform from scratch</strong> serving 500+ institutional clients across 3 portals (Client, Trading, Custody) with multi-signature approval workflows</li>
+                    <li>Led <strong>tokenization initiative for Heart of Europe project</strong>, launching THOE token with smart contract deployment, wallet integration, and comprehensive token economics implementation</li>
                     <li>Engineered <strong>Heart of Europe Exchange</strong> handling 10K+ daily trades with wallet generation, multi-pair trading, 2FA security, and geo-IP blocking</li>
-                    <li>Designed <strong>Midpay payment gateway enabling $2M+ monthly merchant transactions</strong> with dynamic crypto pricing, real-time exchange rate updates, and blockchain settlement verification</li>
+                    <li>Designed <strong>Midpay payment gateway serving enterprise clients including Aldar Properties</strong>, processing $2M+ monthly transactions with dynamic crypto pricing, real-time exchange rate updates, and blockchain settlement verification</li>
                     <li>Implemented <strong>Redis-based order matching engine with sub-200ms execution</strong> and automated profit calculation logic for optimal trade execution</li>
                 </ul>
             </div>
@@ -1333,6 +1646,7 @@
                     <p class="experience-period">July 2021 - November 2022</p>
                 </div>
                 <ul class="experience-list">
+                    <li>Led <strong>Stream Coin launch and tokenization project</strong>, implementing token smart contracts, ICO infrastructure, and blockchain-based token distribution mechanisms</li>
                     <li>Built <strong>ABBC SWAP Portal processing 50K+ cross-chain token swaps</strong> between EOS, ERC20, and BEP20 networks with Web3.py integration and automated blockchain verification</li>
                     <li>Developed <strong>Bitstorm Exchange handling $5M+ trading volume</strong> with Redis-based order matching engine achieving 200ms average order execution time</li>
                     <li>Implemented <strong>two-tier admin approval system reducing fraud by 85%</strong> through automated risk scoring and blockchain transaction validation</li>
@@ -1379,6 +1693,34 @@
                     <strong>fractional investing infrastructure</strong> enabling property tokenization. Built distributed microservices achieving
                     <strong>120ms avg API response time</strong> and reducing agent workflows from hours to minutes through AI automation.
                 </p>
+
+                <!-- Key Metrics -->
+                <div class="metrics-showcase">
+                    <div class="metric-card">
+                        <span class="metric-icon">📊</span>
+                        <span class="metric-value" data-target="1000" data-suffix="+">0</span>
+                        <div class="metric-label">Daily Listings</div>
+                        <div class="metric-description">Properties processed with AI</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">⚡</span>
+                        <span class="metric-value" data-target="120" data-suffix="ms">0</span>
+                        <div class="metric-label">API Response</div>
+                        <div class="metric-description">Average latency</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">🏢</span>
+                        <span class="metric-value" data-target="50" data-suffix="+">0</span>
+                        <div class="metric-label">Agencies</div>
+                        <div class="metric-description">Served across Dubai</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">⏱️</span>
+                        <span class="metric-value" data-target="15" data-suffix=" min">0</span>
+                        <div class="metric-label">Onboarding</div>
+                        <div class="metric-description">From 2 hours</div>
+                    </div>
+                </div>
 
                 <div class="architecture-box">
                     <h4 class="architecture-title">AI-POWERED PLATFORM ARCHITECTURE</h4>
@@ -1812,10 +2154,38 @@
                     </div>
                 </div>
                 <p class="project-description">
-                    Enterprise-grade Payment Service Provider (PSP) gateway enabling merchants to accept cryptocurrency
-                    payments with seamless fiat conversion. Built scalable multi-merchant architecture with dynamic pricing,
-                    QR code generation, and automated settlement processing.
+                    <strong>Enterprise-grade Payment Service Provider (PSP)</strong> gateway powering cryptocurrency payments for <strong>major enterprises including Aldar Properties</strong> (UAE's leading real estate developer).
+                    Enables merchants to accept crypto with seamless fiat conversion, processing <strong>$2M+ monthly transactions</strong>.
+                    Built scalable multi-merchant architecture with dynamic pricing, real-time exchange rates, QR code generation, and automated settlement processing.
                 </p>
+
+                <!-- Key Metrics -->
+                <div class="metrics-showcase">
+                    <div class="metric-card">
+                        <span class="metric-icon">🏢</span>
+                        <span class="metric-value" data-target="2" data-prefix="$" data-suffix="M+">0</span>
+                        <div class="metric-label">Monthly Volume</div>
+                        <div class="metric-description">Transaction processing</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">🌟</span>
+                        <span class="metric-value">Aldar</span>
+                        <div class="metric-label">Enterprise Client</div>
+                        <div class="metric-description">Leading UAE developer</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">⚡</span>
+                        <span class="metric-value" data-target="15" data-suffix=" min">0</span>
+                        <div class="metric-label">Payment Window</div>
+                        <div class="metric-description">QR expiration time</div>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-icon">🔄</span>
+                        <span class="metric-value" data-target="99" data-suffix=".9%">0</span>
+                        <div class="metric-label">Uptime</div>
+                        <div class="metric-description">System reliability</div>
+                    </div>
+                </div>
 
                 <div class="architecture-box">
                     <h4 class="architecture-title">PAYMENT FLOW ARCHITECTURE</h4>
@@ -1922,11 +2292,11 @@ Redis Cache:
                 blockchain systems, and distributed architecture. Whether you're building the next unicorn or scaling an
                 established product, let's talk about how I can drive impact.
             </p>
-            <a href="mailto:imankursaurabh@outlook.com" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; margin: 2rem 0;">
+            <a href="/cdn-cgi/l/email-protection#4a23272b24213f38392b3f382b28220a253f3e2625252164292527" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; margin: 2rem 0;">
                 <i class="fas fa-envelope"></i> Get In Touch
             </a>
             <div class="contact-links">
-                <a href="mailto:imankursaurabh@outlook.com" class="contact-link">
+                <a href="/cdn-cgi/l/email-protection#40292d212e2b353233213532212228002f35342c2f2f2b6e232f2d" class="contact-link">
                     <i class="fas fa-envelope"></i>
                     <span>Email</span>
                 </a>
@@ -1960,7 +2330,7 @@ Redis Cache:
         <i class="fas fa-arrow-up"></i>
     </button>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Loader
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
@@ -2052,6 +2422,41 @@ Redis Cache:
             rootMargin: '0px 0px -100px 0px'
         };
 
+        // Animated Counter Function
+        function animateCounter(element) {
+            const target = parseFloat(element.getAttribute('data-target'));
+            const suffix = element.getAttribute('data-suffix') || '';
+            const prefix = element.getAttribute('data-prefix') || '';
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = prefix + Math.floor(current).toLocaleString() + suffix;
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = prefix + Math.floor(target).toLocaleString() + suffix;
+                }
+            };
+            updateCounter();
+        }
+
+        // Counter Observer
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    animateCounter(entry.target);
+                    entry.target.classList.add('counted');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.badge-number, .metric-value').forEach(counter => {
+            counterObserver.observe(counter);
+        });
+
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -2114,14 +2519,89 @@ Redis Cache:
                 if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }, index * 50);
+                        entry.target.style.transform = 'translateX(0)';
+                    }, index * 100);
                 }
             });
-        }, { threshold: 0.1 });
+        }, { threshold: 0.5 });
 
         skillItems.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(-20px)';
+            item.style.transition = 'all 0.5s ease';
             skillObserver.observe(item);
+        });
+
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
+            const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
+
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.transform = `translateY(-5px) perspective(1000px) rotateX(${moveY}deg) rotateY(${moveX}deg)`;
+            });
+        });
+
+        // Reset transform on mouse leave
+        document.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.transform = '';
+            });
+        });
+
+        // Enhanced Architecture Diagram Styling
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.architecture-diagram').forEach(diagram => {
+                let html = diagram.innerHTML;
+
+                // Highlight box drawing characters
+                html = html.replace(/([│┌└├┬┴┼─┐┘])/g, '<span style="color: #64ffda; opacity: 0.8;">$1</span>');
+
+                // Highlight arrows and flow indicators with gradient effect
+                html = html.replace(/(▼)/g, '<span style="color: #57cbff; font-weight: bold; text-shadow: 0 0 8px rgba(87, 203, 255, 0.5);">$1</span>');
+                html = html.replace(/(▶|►|▸|→)/g, '<span style="color: #f57dff; font-weight: bold;">$1</span>');
+
+                // Highlight key service names and components
+                html = html.replace(/(API Gateway|Gateway|Service|Engine|Portal|Worker|Database|Redis|PostgreSQL|MySQL|Celery|Django|Blockchain)/gi,
+                    '<span style="color: #64ffda; font-weight: 600;">$1</span>');
+
+                // Highlight infrastructure terms
+                html = html.replace(/(Load Balancing|Rate Limiting|Cache|Queue|Cluster|Pipeline|Master|Sub-Merchant|Client|Trading|Custody)/gi,
+                    '<span style="color: #a78bfa; font-weight: 500;">$1</span>');
+
+                // Highlight bullet points
+                html = html.replace(/([•])/g, '<span style="color: #57cbff;">$1</span>');
+
+                // Highlight HTTP methods and status keywords
+                html = html.replace(/(POST|GET|PUT|DELETE|Processing|Confirmed|Approved|CONFIRMED|APPROVED)/gi,
+                    '<span style="color: #ff9a56; font-weight: 600; background: rgba(255, 154, 86, 0.1); padding: 0 4px; border-radius: 2px;">$1</span>');
+
+                // Highlight money/numbers
+                html = html.replace(/(\$[\d,]+\.?\d*)/g, '<span style="color: #64ffda; font-weight: 700;">$1</span>');
+
+                // Highlight percentages
+                html = html.replace(/(\d+%)/g, '<span style="color: #f57dff; font-weight: 600;">$1</span>');
+
+                diagram.innerHTML = html;
+
+                // Add expand/collapse toggle for long diagrams
+                const lineCount = diagram.innerHTML.split('\n').length;
+                if (lineCount > 30) {
+                    const box = diagram.closest('.architecture-box');
+                    box.classList.add('collapsed');
+
+                    const toggle = document.createElement('button');
+                    toggle.className = 'diagram-toggle';
+                    toggle.textContent = '▼ Show Full Diagram';
+                    toggle.onclick = function() {
+                        box.classList.toggle('collapsed');
+                        this.textContent = box.classList.contains('collapsed')
+                            ? '▼ Show Full Diagram'
+                            : '▲ Show Less';
+                    };
+                    box.appendChild(toggle);
+                }
+            });
         });
     </script>
 </body>
