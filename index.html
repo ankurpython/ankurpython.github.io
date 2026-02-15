@@ -1024,7 +1024,7 @@
         }
 
         .architecture-box.collapsed .architecture-diagram {
-            max-height: 200px;
+            max-height: 250px;
             overflow: hidden;
             position: relative;
         }
@@ -1035,8 +1035,8 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 80px;
-            background: linear-gradient(transparent, rgba(10, 25, 47, 0.95));
+            height: 100px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(10, 25, 47, 0.9) 50%, rgba(10, 25, 47, 0.98) 100%);
             pointer-events: none;
         }
 
@@ -1045,18 +1045,25 @@
             margin-top: 1rem;
             color: var(--green);
             font-family: var(--font-mono);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            padding: 0.5rem 1rem;
+            padding: 0.6rem 1.2rem;
             border: 1px solid var(--green);
-            border-radius: 4px;
+            border-radius: 6px;
             transition: var(--transition);
-            background: rgba(100, 255, 218, 0.05);
+            background: rgba(100, 255, 218, 0.08);
+            outline: none;
+            user-select: none;
         }
 
         .diagram-toggle:hover {
-            background: rgba(100, 255, 218, 0.15);
+            background: rgba(100, 255, 218, 0.2);
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+        }
+
+        .diagram-toggle:active {
+            transform: translateY(0);
         }
 
         .architecture-diagram {
@@ -2590,14 +2597,27 @@ Redis Cache:
                     const box = diagram.closest('.architecture-box');
                     box.classList.add('collapsed');
 
+                    // Set initial collapsed state with inline styles
+                    diagram.style.maxHeight = '250px';
+                    diagram.style.overflow = 'hidden';
+
                     const toggle = document.createElement('button');
                     toggle.className = 'diagram-toggle';
                     toggle.textContent = '▼ Show Full Diagram';
-                    toggle.onclick = function() {
+                    toggle.onclick = function(e) {
+                        e.preventDefault();
                         box.classList.toggle('collapsed');
-                        this.textContent = box.classList.contains('collapsed')
-                            ? '▼ Show Full Diagram'
-                            : '▲ Show Less';
+
+                        if (box.classList.contains('collapsed')) {
+                            this.textContent = '▼ Show Full Diagram';
+                            diagram.style.maxHeight = '250px';
+                            diagram.style.overflow = 'hidden';
+                        } else {
+                            this.textContent = '▲ Show Less';
+                            diagram.style.maxHeight = 'none';
+                            diagram.style.overflow = 'visible';
+                            diagram.style.overflowX = 'auto';
+                        }
                     };
                     box.appendChild(toggle);
                 }
