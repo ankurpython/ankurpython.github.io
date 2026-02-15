@@ -2570,22 +2570,6 @@ Redis Cache:
 
         // Enhanced Architecture Diagram Styling
         document.addEventListener('DOMContentLoaded', () => {
-            // Global toggle function
-            window.toggleDiagram = function(button) {
-                console.log('Toggle function called!');
-                const box = button.closest('.architecture-box');
-                console.log('Box found:', box);
-
-                box.classList.toggle('collapsed');
-                console.log('Collapsed state:', box.classList.contains('collapsed'));
-
-                if (box.classList.contains('collapsed')) {
-                    button.innerHTML = '▼ Show Full Diagram';
-                } else {
-                    button.innerHTML = '▲ Show Less';
-                }
-            };
-
             document.querySelectorAll('.architecture-diagram').forEach(diagram => {
                 let html = diagram.innerHTML;
 
@@ -2638,11 +2622,26 @@ Redis Cache:
                     toggle.className = 'diagram-toggle';
                     toggle.innerHTML = '▼ Show Full Diagram';
                     toggle.type = 'button';
-                    toggle.setAttribute('onclick', 'window.toggleDiagram(this); return false;');
+
+                    // Simple inline click test
+                    toggle.onclick = function() {
+                        console.log('BUTTON CLICKED!!!');
+                        alert('Button click works!');
+
+                        box.classList.toggle('collapsed');
+
+                        if (box.classList.contains('collapsed')) {
+                            this.innerHTML = '▼ Show Full Diagram';
+                        } else {
+                            this.innerHTML = '▲ Show Less';
+                        }
+
+                        return false;
+                    };
 
                     buttonWrapper.appendChild(toggle);
                     box.appendChild(buttonWrapper);
-                    console.log('Toggle button added with onclick');
+                    console.log('Toggle button added with direct onclick function');
                 }
             });
         });
