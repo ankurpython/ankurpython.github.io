@@ -1289,6 +1289,348 @@
             .skills-grid { grid-template-columns: 1fr; }
         }
 
+
+        /* ═══════════════════════════════════════════════════
+           ARCHITECTURE SECTION
+        ═══════════════════════════════════════════════════ */
+
+        /* Tabs */
+        .arch-tabs {
+            display: flex; gap: 0.5rem; flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .arch-tab {
+            font-family: var(--font-mono); font-size: 0.78rem;
+            padding: 0.55rem 1.1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--line-strong);
+            color: var(--text-mid);
+            border-radius: var(--radius);
+            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: all 0.2s var(--ease);
+        }
+        .arch-tab:hover { border-color: var(--cyan); color: var(--text-bright); }
+        .arch-tab.active {
+            border-color: var(--cyan); color: var(--cyan);
+            background: var(--cyan-tint);
+            box-shadow: 0 0 12px var(--cyan-glow);
+        }
+
+        /* Panels */
+        .arch-panel {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            animation: fadeIn 0.35s var(--ease);
+        }
+        .arch-panel.active { display: block; }
+
+        .arch-panel-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.8rem;
+        }
+        .arch-panel-label {
+            font-family: var(--font-mono); font-size: 0.72rem;
+            color: var(--cyan); letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .arch-panel-badge {
+            font-family: var(--font-mono); font-size: 0.7rem;
+            padding: 0.25rem 0.8rem;
+            background: var(--cyan-tint);
+            border: 1px solid var(--line-strong);
+            border-radius: 50px;
+            color: var(--text-mid);
+        }
+
+        /* ── SVG Diagram ── */
+        .arch-svg-wrap {
+            width: 100%; overflow-x: auto;
+        }
+        .arch-svg {
+            width: 100%; min-width: 580px; max-width: 860px;
+            display: block; margin: 0 auto;
+        }
+        .arch-node-rect {
+            fill: var(--bg-panel); stroke-width: 1;
+            transition: all 0.2s;
+        }
+        .arch-node-rect.client   { stroke: rgba(0,212,255,0.3); }
+        .arch-node-rect.gateway  { stroke: rgba(0,212,255,0.7); fill: rgba(0,212,255,0.06); }
+        .arch-node-rect.service  { stroke: rgba(155,114,255,0.4); }
+        .arch-node-rect.engine   { stroke: var(--cyan); fill: rgba(0,212,255,0.08); }
+        .arch-node-rect.execution{ stroke: rgba(6,214,160,0.5); }
+        .arch-node-rect.downstream{ stroke: rgba(0,212,255,0.2); }
+        .arch-node-rect.fireblocks{ stroke: rgba(255,107,157,0.6); fill: rgba(255,107,157,0.05); }
+        .arch-node-g:hover .arch-node-rect { filter: brightness(1.3); }
+        .arch-node-g { cursor: pointer; }
+
+        .arch-node-label {
+            font-family: var(--font-mono); font-size: 11px;
+            fill: var(--text-bright); text-anchor: middle;
+            pointer-events: none;
+        }
+        .arch-node-label.engine-label { fill: var(--cyan); font-size: 12px; font-weight: 600; }
+        .arch-node-label.fb-label { fill: rgba(255,107,157,0.9); }
+        .arch-node-sub {
+            font-family: var(--font-mono); font-size: 9px;
+            fill: var(--text-dim); text-anchor: middle;
+            pointer-events: none;
+        }
+        .arch-line {
+            stroke: rgba(0,212,255,0.3); stroke-width: 1.2;
+            fill: none;
+        }
+        .arch-line-pulse {
+            stroke: rgba(0,212,255,0.7);
+            stroke-dasharray: 6 4;
+            animation: dash-flow 1.2s linear infinite;
+        }
+        @keyframes dash-flow {
+            to { stroke-dashoffset: -20; }
+        }
+        .arch-tip {
+            font-family: var(--font-mono); font-size: 10px;
+            fill: var(--text-bright); pointer-events: none;
+        }
+
+        .arch-caption {
+            font-family: var(--font-mono); font-size: 0.72rem;
+            color: var(--text-dim); text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* ── Order Flow Grid ── */
+        .arch-flow-grid {
+            display: flex; flex-wrap: wrap;
+            align-items: center; gap: 0.5rem;
+        }
+        .arch-flow-step {
+            flex: 1; min-width: 130px; max-width: 160px;
+            background: var(--bg-panel);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            padding: 1rem 0.9rem;
+            text-align: center;
+            opacity: 0; transform: translateY(10px);
+            transition: opacity 0.4s calc(var(--i) * 0.07s) var(--ease),
+                        transform 0.4s calc(var(--i) * 0.07s) var(--ease),
+                        border-color 0.2s, box-shadow 0.2s;
+        }
+        .arch-panel.active .arch-flow-step {
+            opacity: 1; transform: none;
+        }
+        .arch-flow-step:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 16px var(--cyan-glow);
+        }
+        .arch-flow-num {
+            font-family: var(--font-mono); font-size: 0.65rem;
+            color: var(--cyan); margin-bottom: 0.4rem;
+        }
+        .arch-flow-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+        .arch-flow-title {
+            font-size: 0.78rem; font-weight: 600;
+            color: var(--text-bright); margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+        .arch-flow-desc {
+            font-size: 0.72rem; color: var(--text-dim);
+            line-height: 1.5;
+        }
+        .arch-flow-arrow {
+            color: var(--cyan); font-size: 1.1rem;
+            flex-shrink: 0; opacity: 0.5;
+        }
+        @media (max-width: 768px) {
+            .arch-flow-arrow { display: none; }
+            .arch-flow-step { max-width: 100%; }
+            .arch-flow-grid { flex-direction: column; }
+        }
+
+        /* ── Fireblocks Panel ── */
+        .arch-fb-wrap {
+            display: flex; gap: 1rem;
+            align-items: stretch; flex-wrap: wrap;
+        }
+        .arch-fb-col {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 0.4rem;
+            flex: 1; min-width: 160px;
+        }
+        .arch-fb-col.center-col { flex: 1.5; }
+        .arch-fb-box {
+            width: 100%;
+            background: var(--bg-panel);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .arch-fb-box.fireblocks-core {
+            border-color: rgba(255,107,157,0.4);
+            background: rgba(255,107,157,0.03);
+        }
+        .arch-fb-box.blockchain {
+            border-color: rgba(6,214,160,0.3);
+        }
+        .arch-fb-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+        .arch-fb-title {
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--text-bright); margin-bottom: 0.6rem;
+        }
+        .arch-fb-list {
+            list-style: none; padding: 0;
+            font-family: var(--font-mono); font-size: 0.72rem;
+            color: var(--text-dim); line-height: 1.9;
+            text-align: left;
+        }
+        .arch-fb-list li::before {
+            content: '▸ '; color: var(--cyan); opacity: 0.7;
+        }
+        .arch-fb-features {
+            display: flex; flex-direction: column; gap: 0.9rem;
+            text-align: left;
+        }
+        .arch-fb-feature {
+            display: flex; gap: 0.7rem; align-items: flex-start;
+        }
+        .arch-fb-feat-icon { font-size: 1rem; flex-shrink: 0; }
+        .arch-fb-feature strong {
+            display: block; font-size: 0.8rem;
+            color: var(--text-bright); margin-bottom: 0.15rem;
+        }
+        .arch-fb-feature p {
+            font-size: 0.72rem; color: var(--text-dim);
+            line-height: 1.5; margin: 0;
+        }
+        .arch-fb-arrow-down {
+            font-size: 1.2rem; color: var(--cyan); opacity: 0.5;
+        }
+        .arch-fb-chains {
+            display: flex; flex-wrap: wrap; gap: 0.4rem;
+            justify-content: center; margin-top: 0.5rem;
+        }
+        .arch-chain-tag {
+            font-family: var(--font-mono); font-size: 0.68rem;
+            padding: 0.2rem 0.6rem;
+            background: rgba(6,214,160,0.08);
+            border: 1px solid rgba(6,214,160,0.2);
+            border-radius: 4px;
+            color: var(--mint);
+        }
+        .arch-fb-connector {
+            display: flex; align-items: center; justify-content: center;
+            min-width: 32px; flex-shrink: 0;
+        }
+        .arch-fb-connector-line {
+            width: 2px; height: 100%; min-height: 120px;
+            background: linear-gradient(to bottom, transparent, rgba(0,212,255,0.3), transparent);
+        }
+        @media (max-width: 768px) {
+            .arch-fb-wrap { flex-direction: column; }
+            .arch-fb-connector { display: none; }
+        }
+
+        /* ── Async Panel ── */
+        .arch-async-wrap {
+            display: flex; gap: 2rem; align-items: flex-start;
+            margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        .arch-async-source {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 0.4rem;
+            min-width: 200px; flex: 0 0 220px;
+        }
+        .arch-async-box {
+            width: 100%;
+            background: var(--bg-panel);
+            border: 1px solid var(--line-strong);
+            border-radius: var(--radius);
+            padding: 1.2rem;
+            text-align: center;
+        }
+        .arch-async-box.primary { border-color: rgba(0,212,255,0.5); }
+        .arch-async-box.broker  { border-color: rgba(155,114,255,0.4); }
+        .arch-async-box.worker-pool { border-color: rgba(6,214,160,0.4); }
+        .arch-async-icon { font-size: 1.4rem; margin-bottom: 0.4rem; }
+        .arch-async-title {
+            font-size: 0.82rem; font-weight: 600;
+            color: var(--text-bright); margin-bottom: 0.2rem;
+        }
+        .arch-async-sub {
+            font-family: var(--font-mono); font-size: 0.7rem;
+            color: var(--text-dim);
+        }
+        .arch-async-stats {
+            display: flex; flex-direction: column; gap: 0.2rem;
+            margin-top: 0.5rem;
+            font-family: var(--font-mono); font-size: 0.68rem;
+            color: var(--violet);
+        }
+        .arch-async-arrow {
+            font-family: var(--font-mono); font-size: 0.72rem;
+            color: var(--cyan); opacity: 0.6;
+        }
+        .arch-async-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--line-strong), transparent);
+            align-self: stretch; flex-shrink: 0;
+        }
+        .arch-async-tasks {
+            flex: 1; min-width: 280px;
+            display: flex; flex-direction: column; gap: 0.8rem;
+        }
+        .arch-async-task {
+            display: flex; gap: 0.9rem; align-items: flex-start;
+            background: var(--bg-panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.9rem 1rem;
+            opacity: 0; transform: translateX(12px);
+            transition: opacity 0.4s calc(var(--i) * 0.08s) var(--ease),
+                        transform 0.4s calc(var(--i) * 0.08s) var(--ease),
+                        border-color 0.2s;
+        }
+        .arch-panel.active .arch-async-task {
+            opacity: 1; transform: none;
+        }
+        .arch-async-task:hover { border-color: var(--cyan); }
+        .arch-task-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .arch-async-task strong {
+            display: block; font-size: 0.82rem;
+            color: var(--text-bright); margin-bottom: 0.2rem;
+        }
+        .arch-async-task p {
+            font-size: 0.75rem; color: var(--text-dim);
+            line-height: 1.5; margin: 0;
+        }
+        .arch-async-benefits {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem; margin-top: 0.5rem;
+        }
+        .arch-benefit {
+            background: var(--bg-panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1rem;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .arch-benefit:hover { border-color: var(--cyan); }
+        .arch-benefit-icon { font-size: 1.4rem; display: block; margin-bottom: 0.4rem; }
+        .arch-benefit strong {
+            display: block; font-size: 0.82rem;
+            color: var(--text-bright); margin-bottom: 0.3rem;
+        }
+        .arch-benefit p {
+            font-size: 0.72rem; color: var(--text-dim);
+            line-height: 1.5; margin: 0;
+        }
+
     </style>
 </head>
 
@@ -1328,6 +1670,7 @@
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
+                <li><a href="#architecture">Architecture</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li><a href="assets/downloads/resume.pdf" download class="btn">Resume</a></li>
             </ul>
@@ -1354,14 +1697,14 @@
 <!--        <a href="https://share.streamlit.io/user/ankurpython" target="_blank" aria-label="Live Projects" title="Streamlit Apps">-->
 <!--            <i class="fas fa-rocket"></i>-->
 <!--        </a>-->
-        <a href="mailto:imankursaurabh@outlook.com" aria-label="Email">
+        <a href="/cdn-cgi/l/email-protection#452c28242b2e30373624303724272d052a3031292a2a2e6b262a28" aria-label="Email">
             <i class="fas fa-envelope"></i>
         </a>
     </div>
 
     <!-- Email (Fixed) -->
     <div class="email-fixed">
-        <a href="mailto:imankursaurabh@outlook.com">imankursaurabh@outlook.com</a>
+        <a href="/cdn-cgi/l/email-protection#375e5a56595c42454456424556555f775842435b58585c1954585a"><span class="__cf_email__" data-cfemail="9df4f0fcf3f6e8efeefce8effcfff5ddf2e8e9f1f2f2f6b3fef2f0">[email&#160;protected]</span></a>
     </div>
 
     <!-- Hero Section -->
@@ -2225,9 +2568,442 @@ Redis Cache:
         </div>
     </section>
 
+    <!-- Architecture Section -->
+    <section id="architecture">
+        <h2 class="section-title"><span class="sec-num">05</span>Exchange Architecture</h2>
+
+        <!-- Intro -->
+        <p style="color:var(--text-mid);font-size:1rem;line-height:1.8;max-width:700px;margin-bottom:3rem;">
+            A deep-dive into the infrastructure I've designed and built — from full exchange backends to
+            Fireblocks custody integrations and async trade processing. These aren't diagrams from a textbook;
+            they reflect the systems I shipped at <strong style="color:var(--text-bright)">MidChains</strong>.
+        </p>
+
+        <!-- Tab switcher -->
+        <div class="arch-tabs" id="archTabs">
+            <button class="arch-tab active" data-arch="overview">
+                <i class="fas fa-sitemap"></i> Exchange Overview
+            </button>
+            <button class="arch-tab" data-arch="order">
+                <i class="fas fa-bolt"></i> Order Flow
+            </button>
+            <button class="arch-tab" data-arch="fireblocks">
+                <i class="fas fa-shield-alt"></i> Fireblocks Layer
+            </button>
+            <button class="arch-tab" data-arch="async">
+                <i class="fas fa-cogs"></i> Async Processing
+            </button>
+        </div>
+
+        <!-- ── PANEL 1: High-Level Exchange Overview ── -->
+        <div class="arch-panel active" id="arch-overview">
+            <div class="arch-panel-header">
+                <span class="arch-panel-label">HIGH-LEVEL EXCHANGE ARCHITECTURE</span>
+                <span class="arch-panel-badge">Production Design</span>
+            </div>
+            <div class="arch-svg-wrap">
+                <svg viewBox="0 0 860 520" xmlns="http://www.w3.org/2000/svg" class="arch-svg" id="svgOverview">
+                    <defs>
+                        <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L8,3 z" fill="rgba(0,212,255,0.7)"/>
+                        </marker>
+                        <marker id="arr-dim" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L8,3 z" fill="rgba(0,212,255,0.3)"/>
+                        </marker>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+
+                    <!-- Clients row -->
+                    <g class="arch-node-g" data-tip="Web, Mobile & API traders — all entry points to the exchange">
+                        <rect x="120" y="20" width="120" height="44" rx="8" class="arch-node-rect client"/>
+                        <text x="180" y="37" class="arch-node-label">🌐 Web / Mobile</text>
+                        <text x="180" y="52" class="arch-node-sub">Trader Clients</text>
+                    </g>
+                    <g class="arch-node-g" data-tip="Institutional API traders with direct market access">
+                        <rect x="280" y="20" width="120" height="44" rx="8" class="arch-node-rect client"/>
+                        <text x="340" y="37" class="arch-node-label">⚙️ API Traders</text>
+                        <text x="340" y="52" class="arch-node-sub">Direct Access</text>
+                    </g>
+                    <g class="arch-node-g" data-tip="Third-party broker systems connecting via FIX or REST">
+                        <rect x="440" y="20" width="120" height="44" rx="8" class="arch-node-rect client"/>
+                        <text x="500" y="37" class="arch-node-label">🤝 Brokers</text>
+                        <text x="500" y="52" class="arch-node-sub">3rd-Party Systems</text>
+                    </g>
+
+                    <!-- Lines: clients → gateway -->
+                    <line x1="180" y1="64" x2="290" y2="124" class="arch-line" marker-end="url(#arr-dim)"/>
+                    <line x1="340" y1="64" x2="340" y2="124" class="arch-line" marker-end="url(#arr)"/>
+                    <line x1="500" y1="64" x2="390" y2="124" class="arch-line" marker-end="url(#arr-dim)"/>
+
+                    <!-- API Gateway -->
+                    <g class="arch-node-g" data-tip="Auth (JWT/OAuth), rate limiting, request validation — the security perimeter">
+                        <rect x="215" y="124" width="250" height="44" rx="8" class="arch-node-rect gateway"/>
+                        <text x="340" y="141" class="arch-node-label">🔐 API Gateway</text>
+                        <text x="340" y="156" class="arch-node-sub">Auth · Rate Limit · Validation</text>
+                    </g>
+
+                    <!-- Line: gateway → 3 services -->
+                    <line x1="290" y1="168" x2="170" y2="228" class="arch-line" marker-end="url(#arr)"/>
+                    <line x1="340" y1="168" x2="340" y2="228" class="arch-line arch-line-pulse" marker-end="url(#arr)"/>
+                    <line x1="390" y1="168" x2="510" y2="228" class="arch-line" marker-end="url(#arr)"/>
+
+                    <!-- Service Row -->
+                    <g class="arch-node-g" data-tip="Validates, stores and routes incoming orders to the matching engine">
+                        <rect x="80" y="228" width="180" height="44" rx="8" class="arch-node-rect service"/>
+                        <text x="170" y="245" class="arch-node-label">📋 Order Service</text>
+                        <text x="170" y="260" class="arch-node-sub">Validate · Store · Route</text>
+                    </g>
+                    <g class="arch-node-g" data-tip="Streams real-time price feeds, order book snapshots and trade history">
+                        <rect x="260" y="228" width="160" height="44" rx="8" class="arch-node-rect service"/>
+                        <text x="340" y="245" class="arch-node-label">📊 Market Data</text>
+                        <text x="340" y="260" class="arch-node-sub">Prices · Order Book</text>
+                    </g>
+                    <g class="arch-node-g" data-tip="KYC, authentication, balance management, and user preferences">
+                        <rect x="430" y="228" width="160" height="44" rx="8" class="arch-node-rect service"/>
+                        <text x="510" y="245" class="arch-node-label">👤 User Service</text>
+                        <text x="510" y="260" class="arch-node-sub">KYC · Auth · Balances</text>
+                    </g>
+
+                    <!-- Services → Matching Engine -->
+                    <line x1="170" y1="272" x2="310" y2="332" class="arch-line" marker-end="url(#arr)"/>
+                    <line x1="340" y1="272" x2="340" y2="332" class="arch-line arch-line-pulse" marker-end="url(#arr)"/>
+                    <line x1="510" y1="272" x2="370" y2="332" class="arch-line" marker-end="url(#arr)"/>
+
+                    <!-- Matching Engine -->
+                    <g class="arch-node-g arch-node-highlight" data-tip="The core — price-time priority matching, sub-200ms, Redis-backed order book">
+                        <rect x="215" y="332" width="250" height="50" rx="8" class="arch-node-rect engine"/>
+                        <text x="340" y="352" class="arch-node-label engine-label">⚡ Matching Engine</text>
+                        <text x="340" y="370" class="arch-node-sub">Sub-200ms · Price-Time Priority</text>
+                    </g>
+
+                    <!-- Matching Engine → Trade Execution -->
+                    <line x1="340" y1="382" x2="340" y2="432" class="arch-line arch-line-pulse" marker-end="url(#arr)"/>
+
+                    <!-- Trade Execution -->
+                    <g class="arch-node-g" data-tip="Confirms trades, triggers settlement & custody transfer flows">
+                        <rect x="215" y="432" width="250" height="44" rx="8" class="arch-node-rect execution"/>
+                        <text x="340" y="449" class="arch-node-label">✅ Trade Execution</text>
+                        <text x="340" y="464" class="arch-node-sub">Confirm · Settle · Transfer</text>
+                    </g>
+
+                    <!-- Execution → 3 downstream -->
+                    <line x1="280" y1="476" x2="170" y2="520" class="arch-line" marker-end="url(#arr-dim)" style="stroke-dasharray:4,3"/>
+                    <line x1="340" y1="476" x2="340" y2="520" class="arch-line" marker-end="url(#arr-dim)" style="stroke-dasharray:4,3"/>
+                    <line x1="400" y1="476" x2="510" y2="520" class="arch-line" marker-end="url(#arr-dim)" style="stroke-dasharray:4,3"/>
+
+                    <!-- Downstream -->
+                    <g class="arch-node-g" data-tip="Updates user balances and trade ledger post-execution">
+                        <rect x="80" y="520" width="180" height="44" rx="8" class="arch-node-rect downstream"/>
+                        <text x="170" y="537" class="arch-node-label">🏦 Settlement</text>
+                        <text x="170" y="552" class="arch-node-sub">Balance Updates</text>
+                    </g>
+                    <g class="arch-node-g" data-tip="Fireblocks-backed MPC wallet for secure custody and withdrawal">
+                        <rect x="260" y="520" width="160" height="44" rx="8" class="arch-node-rect downstream"/>
+                        <text x="340" y="537" class="arch-node-label">💰 Wallet Service</text>
+                        <text x="340" y="552" class="arch-node-sub">Fireblocks MPC</text>
+                    </g>
+                    <g class="arch-node-g" data-tip="Real-time risk checks: exposure limits, velocity controls, fraud detection">
+                        <rect x="430" y="520" width="160" height="44" rx="8" class="arch-node-rect downstream"/>
+                        <text x="510" y="537" class="arch-node-label">🛡️ Risk Engine</text>
+                        <text x="510" y="552" class="arch-node-sub">Limits · Fraud · Velocity</text>
+                    </g>
+
+                    <!-- Fireblocks on the right -->
+                    <g class="arch-node-g" data-tip="Fireblocks: institutional-grade MPC wallet infrastructure, policy engine & signing">
+                        <rect x="660" y="430" width="170" height="60" rx="8" class="arch-node-rect fireblocks"/>
+                        <text x="745" y="453" class="arch-node-label fb-label">🔥 Fireblocks</text>
+                        <text x="745" y="470" class="arch-node-sub">MPC · Policy · Signing</text>
+                        <text x="745" y="484" class="arch-node-sub" style="fill:rgba(255,107,157,0.6);font-size:9px">Custody Provider</text>
+                    </g>
+                    <line x1="420" y1="542" x2="660" y2="460" class="arch-line" marker-end="url(#arr)" style="stroke:rgba(255,107,157,0.5)"/>
+
+                    <!-- Hover tooltip placeholder -->
+                    <rect id="tip-bg" x="0" y="0" width="0" height="0" rx="6" fill="rgba(8,15,30,0.95)" stroke="rgba(0,212,255,0.3)" stroke-width="1"/>
+                    <text id="tip-text" x="0" y="0" class="arch-tip" text-anchor="middle"></text>
+                </svg>
+            </div>
+            <p class="arch-caption">↑ Hover any node to learn what each layer does. Animated lines show the critical order path.</p>
+        </div>
+
+        <!-- ── PANEL 2: Order Execution Flow ── -->
+        <div class="arch-panel" id="arch-order">
+            <div class="arch-panel-header">
+                <span class="arch-panel-label">ORDER EXECUTION FLOW</span>
+                <span class="arch-panel-badge">9-Step Pipeline</span>
+            </div>
+            <div class="arch-flow-grid">
+                <div class="arch-flow-step" style="--i:0">
+                    <div class="arch-flow-num">01</div>
+                    <div class="arch-flow-icon">👤</div>
+                    <div class="arch-flow-title">Trader Places Order</div>
+                    <div class="arch-flow-desc">Buy / Sell request submitted via Web, Mobile, or API. Includes price, quantity, order type (limit / market).</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:1">
+                    <div class="arch-flow-num">02</div>
+                    <div class="arch-flow-icon">🔐</div>
+                    <div class="arch-flow-title">API Validates Request</div>
+                    <div class="arch-flow-desc">JWT auth, rate-limit check, payload schema validation, KYC status, and balance sufficiency.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:2">
+                    <div class="arch-flow-num">03</div>
+                    <div class="arch-flow-icon">📋</div>
+                    <div class="arch-flow-title">Order Service Stores</div>
+                    <div class="arch-flow-desc">Order persisted to PostgreSQL with PENDING status. Funds reserved in user ledger atomically.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:3">
+                    <div class="arch-flow-num">04</div>
+                    <div class="arch-flow-icon">📨</div>
+                    <div class="arch-flow-title">Sent to Matching Engine</div>
+                    <div class="arch-flow-desc">Order pushed into Redis sorted-set order book. In-memory operation for sub-200ms routing.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:4">
+                    <div class="arch-flow-num">05</div>
+                    <div class="arch-flow-icon">⚡</div>
+                    <div class="arch-flow-title">Engine Matches Buy/Sell</div>
+                    <div class="arch-flow-desc">Price-time priority algorithm runs. Partial fills handled. Unmatched orders remain live on book.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:5">
+                    <div class="arch-flow-num">06</div>
+                    <div class="arch-flow-icon">✅</div>
+                    <div class="arch-flow-title">Trade Generated</div>
+                    <div class="arch-flow-desc">Matched trade record created with execution price, timestamp, maker/taker fees calculated.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:6">
+                    <div class="arch-flow-num">07</div>
+                    <div class="arch-flow-icon">🏦</div>
+                    <div class="arch-flow-title">Settlement Updates Balances</div>
+                    <div class="arch-flow-desc">Atomic DB transaction swaps asset balances between buyer and seller. Ledger entries written.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:7">
+                    <div class="arch-flow-num">08</div>
+                    <div class="arch-flow-icon">💳</div>
+                    <div class="arch-flow-title">Wallet Service Triggers Transfer</div>
+                    <div class="arch-flow-desc">If withdrawal flagged: Celery task enqueued → Fireblocks API called with transaction details.</div>
+                </div>
+                <div class="arch-flow-arrow">→</div>
+                <div class="arch-flow-step" style="--i:8">
+                    <div class="arch-flow-num">09</div>
+                    <div class="arch-flow-icon">🔥</div>
+                    <div class="arch-flow-title">Fireblocks Executes</div>
+                    <div class="arch-flow-desc">MPC signing, policy approval, broadcast to blockchain. On-chain confirmation webhook returns to platform.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PANEL 3: Fireblocks Integration ── -->
+        <div class="arch-panel" id="arch-fireblocks">
+            <div class="arch-panel-header">
+                <span class="arch-panel-label">FIREBLOCKS CUSTODY INTEGRATION</span>
+                <span class="arch-panel-badge">MPC Wallet Layer</span>
+            </div>
+            <div class="arch-fb-wrap">
+                <div class="arch-fb-col">
+                    <div class="arch-fb-box exchange">
+                        <div class="arch-fb-icon">🏢</div>
+                        <div class="arch-fb-title">Exchange Backend</div>
+                        <ul class="arch-fb-list">
+                            <li>Django REST API</li>
+                            <li>Celery Task Queue</li>
+                            <li>PostgreSQL Ledger</li>
+                        </ul>
+                    </div>
+                    <div class="arch-fb-arrow-down">↓</div>
+                    <div class="arch-fb-box wallet">
+                        <div class="arch-fb-icon">💰</div>
+                        <div class="arch-fb-title">Wallet Service</div>
+                        <ul class="arch-fb-list">
+                            <li>Address Generation</li>
+                            <li>Balance Sync</li>
+                            <li>Withdrawal Requests</li>
+                            <li>Deposit Monitoring</li>
+                        </ul>
+                    </div>
+                    <div class="arch-fb-arrow-down">↓</div>
+                    <div class="arch-fb-box api">
+                        <div class="arch-fb-icon">🔗</div>
+                        <div class="arch-fb-title">Fireblocks API</div>
+                        <ul class="arch-fb-list">
+                            <li>JWT-signed requests</li>
+                            <li>Webhook callbacks</li>
+                            <li>Transaction status</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="arch-fb-connector">
+                    <div class="arch-fb-connector-line"></div>
+                </div>
+                <div class="arch-fb-col center-col">
+                    <div class="arch-fb-box fireblocks-core">
+                        <div class="arch-fb-icon">🔥</div>
+                        <div class="arch-fb-title">Fireblocks Infrastructure</div>
+                        <div class="arch-fb-features">
+                            <div class="arch-fb-feature">
+                                <span class="arch-fb-feat-icon">🔑</span>
+                                <div>
+                                    <strong>MPC Wallets</strong>
+                                    <p>Multi-party computation — no single point of compromise</p>
+                                </div>
+                            </div>
+                            <div class="arch-fb-feature">
+                                <span class="arch-fb-feat-icon">📋</span>
+                                <div>
+                                    <strong>Policy Engine</strong>
+                                    <p>Configurable approval rules — amount limits, whitelists, co-signing</p>
+                                </div>
+                            </div>
+                            <div class="arch-fb-feature">
+                                <span class="arch-fb-feat-icon">✍️</span>
+                                <div>
+                                    <strong>Transaction Signing</strong>
+                                    <p>HSM-grade signing across 50+ blockchains</p>
+                                </div>
+                            </div>
+                            <div class="arch-fb-feature">
+                                <span class="arch-fb-feat-icon">📡</span>
+                                <div>
+                                    <strong>Webhooks</strong>
+                                    <p>Real-time confirmations pushed back to exchange</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arch-fb-connector">
+                    <div class="arch-fb-connector-line"></div>
+                </div>
+                <div class="arch-fb-col">
+                    <div class="arch-fb-box blockchain">
+                        <div class="arch-fb-icon">⛓️</div>
+                        <div class="arch-fb-title">Blockchain Networks</div>
+                        <div class="arch-fb-chains">
+                            <span class="arch-chain-tag">Bitcoin</span>
+                            <span class="arch-chain-tag">Ethereum</span>
+                            <span class="arch-chain-tag">ERC-20</span>
+                            <span class="arch-chain-tag">BEP-20</span>
+                            <span class="arch-chain-tag">EOS</span>
+                            <span class="arch-chain-tag">USDC</span>
+                            <span class="arch-chain-tag">USDT</span>
+                            <span class="arch-chain-tag">+50 more</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── PANEL 4: Async Processing ── -->
+        <div class="arch-panel" id="arch-async">
+            <div class="arch-panel-header">
+                <span class="arch-panel-label">ASYNC PROCESSING LAYER</span>
+                <span class="arch-panel-badge">Celery + Redis</span>
+            </div>
+            <div class="arch-async-wrap">
+                <div class="arch-async-source">
+                    <div class="arch-async-box primary">
+                        <div class="arch-async-icon">⚡</div>
+                        <div class="arch-async-title">Trading API</div>
+                        <div class="arch-async-sub">Django REST Framework</div>
+                    </div>
+                    <div class="arch-async-arrow">↓  enqueue task</div>
+                    <div class="arch-async-box broker">
+                        <div class="arch-async-icon">📬</div>
+                        <div class="arch-async-title">Message Broker</div>
+                        <div class="arch-async-sub">Redis / RabbitMQ</div>
+                        <div class="arch-async-stats">
+                            <span>High-throughput</span>
+                            <span>Persistent queues</span>
+                        </div>
+                    </div>
+                    <div class="arch-async-arrow">↓  consume</div>
+                    <div class="arch-async-box worker-pool">
+                        <div class="arch-async-icon">👷</div>
+                        <div class="arch-async-title">Celery Worker Pool</div>
+                        <div class="arch-async-sub">Horizontal scale · Auto-retry</div>
+                    </div>
+                </div>
+                <div class="arch-async-divider"></div>
+                <div class="arch-async-tasks">
+                    <div class="arch-async-task" style="--i:0">
+                        <span class="arch-task-icon">🏦</span>
+                        <div>
+                            <strong>Trade Settlement</strong>
+                            <p>Post-match balance updates, fee collection, ledger writes</p>
+                        </div>
+                    </div>
+                    <div class="arch-async-task" style="--i:1">
+                        <span class="arch-task-icon">🔔</span>
+                        <div>
+                            <strong>Notifications</strong>
+                            <p>Email / push alerts for fills, withdrawals, KYC status changes</p>
+                        </div>
+                    </div>
+                    <div class="arch-async-task" style="--i:2">
+                        <span class="arch-task-icon">🛡️</span>
+                        <div>
+                            <strong>Risk Checks</strong>
+                            <p>Async fraud scoring, velocity checks, exposure calculation</p>
+                        </div>
+                    </div>
+                    <div class="arch-async-task" style="--i:3">
+                        <span class="arch-task-icon">📊</span>
+                        <div>
+                            <strong>Reporting</strong>
+                            <p>Daily P&amp;L, compliance reports, audit trail generation</p>
+                        </div>
+                    </div>
+                    <div class="arch-async-task" style="--i:4">
+                        <span class="arch-task-icon">💰</span>
+                        <div>
+                            <strong>Withdrawal Processing</strong>
+                            <p>Fireblocks API calls, on-chain broadcast, confirmation polling</p>
+                        </div>
+                    </div>
+                    <div class="arch-async-task" style="--i:5">
+                        <span class="arch-task-icon">🔄</span>
+                        <div>
+                            <strong>Reconciliation</strong>
+                            <p>Cross-check exchange balances vs custody wallets, detect discrepancies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="arch-async-benefits">
+                <div class="arch-benefit">
+                    <span class="arch-benefit-icon">🚀</span>
+                    <strong>Non-blocking</strong>
+                    <p>API responds instantly; heavy work deferred</p>
+                </div>
+                <div class="arch-benefit">
+                    <span class="arch-benefit-icon">📈</span>
+                    <strong>Scalable</strong>
+                    <p>Add workers horizontally under load</p>
+                </div>
+                <div class="arch-benefit">
+                    <span class="arch-benefit-icon">🔁</span>
+                    <strong>Resilient</strong>
+                    <p>Auto-retry with exponential backoff</p>
+                </div>
+                <div class="arch-benefit">
+                    <span class="arch-benefit-icon">📉</span>
+                    <strong>High Throughput</strong>
+                    <p>Thousands of tasks/sec on commodity hardware</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact">
-        <h2 class="section-title"><span class="sec-num">05</span>Get In Touch</h2>
+        <h2 class="section-title"><span class="sec-num">06</span>Get In Touch</h2>
         <div class="contact-content">
             <div class="open-to-badge">
                 <i class="fas fa-map-marker-alt" style="color:var(--cyan)"></i>
@@ -2239,14 +3015,14 @@ Redis Cache:
                 fintech, AI platforms, crypto infrastructure, or anything with hard distributed systems problems.
                 If that sounds like your team, I'd love to talk.
             </p>
-            <a href="mailto:imankursaurabh@outlook.com" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; margin: 2rem 0;">
+            <a href="/cdn-cgi/l/email-protection#cea7a3afa0a5bbbcbdafbbbcafaca68ea1bbbaa2a1a1a5e0ada1a3" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; margin: 2rem 0;">
                 <i class="fas fa-envelope"></i> Say Hello
             </a>
             <div class="contact-cards">
-                <a href="mailto:imankursaurabh@outlook.com" class="contact-card">
+                <a href="/cdn-cgi/l/email-protection#6e07030f00051b1c1d0f1b1c0f0c062e011b1a02010105400d0103" class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <span>Email</span>
-                    <small>imankursaurabh@outlook.com</small>
+                    <small><span class="__cf_email__" data-cfemail="bcd5d1ddd2d7c9cecfddc9ceddded4fcd3c9c8d0d3d3d792dfd3d1">[email&#160;protected]</span></small>
                 </a>
                 <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" class="contact-card">
                     <i class="fab fa-linkedin-in"></i>
@@ -2273,7 +3049,7 @@ Redis Cache:
             <div class="footer-social">
                 <a href="https://github.com/ankurpython/" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="mailto:imankursaurabh@outlook.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="/cdn-cgi/l/email-protection#ec85818d8287999e9f8d999e8d8e84ac83999880838387c28f8381" aria-label="Email"><i class="fas fa-envelope"></i></a>
             </div>
             <p>Designed &amp; Built by <a href="#">Ankur Saurabh</a> · 📍 Dubai, UAE</p>
             <p style="margin-top: 0.4rem; font-size: 0.75rem; opacity: 0.5;">© 2026 · All rights reserved.</p>
@@ -2286,7 +3062,7 @@ Redis Cache:
     </button>
 
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Loader
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
@@ -2720,7 +3496,60 @@ Redis Cache:
             }, 1800);
         })();
 
-        // ── DARK / LIGHT MODE TOGGLE ───────────────────────
+
+        // ── ARCHITECTURE TAB SWITCHING ─────────────────────
+        (function() {
+            const tabs = document.querySelectorAll('.arch-tab');
+            const panels = document.querySelectorAll('.arch-panel');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    panels.forEach(p => p.classList.remove('active'));
+                    tab.classList.add('active');
+                    const panel = document.getElementById('arch-' + tab.dataset.arch);
+                    if (panel) panel.classList.add('active');
+                });
+            });
+        })();
+
+        // ── SVG ARCHITECTURE TOOLTIPS ──────────────────────
+        (function() {
+            const svg = document.getElementById('svgOverview');
+            if (!svg) return;
+            const tipBg = document.getElementById('tip-bg');
+            const tipText = document.getElementById('tip-text');
+            svg.querySelectorAll('.arch-node-g[data-tip]').forEach(node => {
+                node.addEventListener('mouseenter', function(e) {
+                    const tip = this.dataset.tip;
+                    if (!tip || !tipText || !tipBg) return;
+                    const rect = this.querySelector('rect');
+                    if (!rect) return;
+                    const rx = parseFloat(rect.getAttribute('x')) + parseFloat(rect.getAttribute('width'))/2;
+                    const ry = parseFloat(rect.getAttribute('y')) - 14;
+                    const words = tip.split(' ');
+                    const line1 = words.slice(0, Math.ceil(words.length/2)).join(' ');
+                    const line2 = words.slice(Math.ceil(words.length/2)).join(' ');
+                    tipText.innerHTML = '';
+                    const t1 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+                    t1.setAttribute('x', rx); t1.setAttribute('dy','0'); t1.textContent = line1;
+                    const t2 = document.createElementNS('http://www.w3.org/2000/svg','tspan');
+                    t2.setAttribute('x', rx); t2.setAttribute('dy','13'); t2.textContent = line2;
+                    tipText.appendChild(t1); tipText.appendChild(t2);
+                    tipText.setAttribute('x', rx); tipText.setAttribute('y', ry - (line2 ? 8 : 0));
+                    const w = Math.max(line1.length, line2.length) * 5.8 + 16;
+                    tipBg.setAttribute('x', rx - w/2);
+                    tipBg.setAttribute('y', ry - (line2 ? 28 : 18));
+                    tipBg.setAttribute('width', w);
+                    tipBg.setAttribute('height', line2 ? 30 : 18);
+                });
+                node.addEventListener('mouseleave', function() {
+                    if (tipBg) { tipBg.setAttribute('width','0'); tipBg.setAttribute('height','0'); }
+                    if (tipText) tipText.innerHTML = '';
+                });
+            });
+        })();
+
+
         (function() {
             const btn = document.getElementById('themeToggle');
             if (!btn) return;
@@ -2759,17 +3588,18 @@ Redis Cache:
 
         // ── CARD SCROLL REVEAL ─────────────────────────────
         const _cardObs = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
+            entries.forEach((entry, i) => {
                 if (entry.isIntersecting) {
                     const siblings = Array.from(entry.target.parentElement.children);
                     const idx = siblings.indexOf(entry.target);
                     setTimeout(() => entry.target.classList.add('revealed'), idx * 100);
-                     }
+                }
             });
         }, { threshold: 0.1 });
         document.querySelectorAll('.project-card, .highlight-card, .metric-card').forEach(card => {
             _cardObs.observe(card);
         });
+
 
     </script>
 </body>
