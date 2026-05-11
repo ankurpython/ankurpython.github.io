@@ -1631,232 +1631,6 @@
             line-height: 1.5; margin: 0;
         }
 
-        /* ── CONTACT FORM ────────────────────────────────── */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1.4fr;
-            gap: 4rem;
-            align-items: start;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .contact-left { display: flex; flex-direction: column; gap: 1.5rem; }
-        .contact-left .open-to-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-mid);
-            background: var(--cyan-tint);
-            border: 1px solid var(--line-strong);
-            border-radius: 20px;
-            padding: 0.4rem 0.9rem;
-            width: fit-content;
-        }
-        .contact-left .contact-title {
-            font-family: var(--font-display);
-            font-size: 2rem; font-weight: 800;
-            color: var(--text-bright);
-            line-height: 1.2;
-        }
-        .contact-left .contact-description {
-            font-size: 0.95rem; color: var(--text-mid); line-height: 1.8;
-        }
-        .contact-left .contact-cards {
-            display: flex; flex-direction: column; gap: 0.75rem;
-        }
-        .contact-left .contact-card {
-            display: flex; align-items: center; gap: 1rem;
-            padding: 0.85rem 1rem;
-            background: var(--bg-card);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            text-decoration: none;
-            transition: all 0.25s var(--ease);
-        }
-        .contact-left .contact-card:hover {
-            border-color: var(--cyan);
-            background: var(--cyan-tint);
-            transform: translateX(4px);
-        }
-        .contact-left .contact-card i {
-            color: var(--cyan); width: 18px; text-align: center;
-        }
-        .contact-left .contact-card span {
-            color: var(--text-bright); font-size: 0.85rem; font-weight: 600;
-        }
-        .contact-left .contact-card small {
-            color: var(--text-dim); font-family: var(--font-mono); font-size: 0.7rem;
-            margin-left: auto;
-        }
-
-        /* Contact Form Panel */
-        .contact-form-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--line-strong);
-            border-radius: var(--radius-lg);
-            padding: 2.2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .contact-form-panel::before {
-            content: '';
-            position: absolute; top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--cyan), var(--violet), var(--rose));
-        }
-        .contact-form-panel::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: radial-gradient(ellipse 60% 40% at 80% 0%, rgba(0,212,255,0.04), transparent);
-            pointer-events: none;
-        }
-        .form-header {
-            margin-bottom: 1.8rem;
-        }
-        .form-header-label {
-            font-family: var(--font-mono);
-            font-size: 0.68rem; color: var(--cyan);
-            text-transform: uppercase; letter-spacing: 2px;
-            margin-bottom: 0.4rem;
-        }
-        .form-header h4 {
-            font-family: var(--font-display);
-            font-size: 1.25rem; font-weight: 700;
-            color: var(--text-bright);
-        }
-        .form-group { margin-bottom: 1.2rem; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem; }
-        .form-label {
-            display: block;
-            font-family: var(--font-mono);
-            font-size: 0.68rem; font-weight: 600;
-            color: var(--text-mid);
-            text-transform: uppercase; letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            background: var(--bg-panel);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            padding: 0.75rem 1rem;
-            font-family: var(--font-body);
-            font-size: 0.88rem;
-            color: var(--text-bright);
-            outline: none;
-            transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease), background 0.25s;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-        .form-input::placeholder, .form-textarea::placeholder {
-            color: var(--text-dim);
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            border-color: var(--cyan);
-            box-shadow: 0 0 0 3px var(--cyan-glow);
-            background: var(--bg-card);
-        }
-        .form-select {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%2300d4ff' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 0.9rem center;
-            background-size: 14px;
-            cursor: pointer;
-        }
-        .form-select option {
-            background: var(--bg-card);
-            color: var(--text-bright);
-        }
-        .form-textarea {
-            resize: vertical;
-            min-height: 110px;
-            line-height: 1.6;
-        }
-        .form-submit-btn {
-            width: 100%;
-            padding: 0.9rem 1.5rem;
-            background: var(--cyan);
-            color: var(--bg);
-            border: none;
-            border-radius: var(--radius);
-            font-family: var(--font-mono);
-            font-size: 0.85rem; font-weight: 700;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            display: flex; align-items: center; justify-content: center; gap: 0.6rem;
-            position: relative; overflow: hidden;
-            transition: all 0.25s var(--ease);
-        }
-        .form-submit-btn::before {
-            content: '';
-            position: absolute; inset: 0;
-            background: var(--text-bright);
-            transform: translateX(-101%);
-            transition: transform 0.3s var(--ease);
-            z-index: 0;
-        }
-        .form-submit-btn:hover::before { transform: translateX(0); }
-        .form-submit-btn span, .form-submit-btn i { position: relative; z-index: 1; }
-        .form-submit-btn:hover { box-shadow: 0 4px 20px rgba(0,212,255,0.35); }
-        .form-submit-btn:active { transform: scale(0.98); }
-        .form-note {
-            margin-top: 0.9rem; text-align: center;
-            font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim);
-        }
-        /* Success / error states */
-        .form-status {
-            display: none; margin-top: 1rem;
-            padding: 0.75rem 1rem;
-            border-radius: var(--radius);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            text-align: center;
-        }
-        .form-status.success {
-            display: block;
-            background: rgba(6,214,160,0.1);
-            border: 1px solid var(--mint);
-            color: var(--mint);
-        }
-        .form-status.error {
-            display: block;
-            background: rgba(255,107,157,0.1);
-            border: 1px solid var(--rose);
-            color: var(--rose);
-        }
-        /* Checkbox row */
-        .form-check-row {
-            display: flex; align-items: flex-start; gap: 0.65rem;
-            margin-bottom: 1.2rem;
-        }
-        .form-checkbox {
-            width: 16px; height: 16px; margin-top: 2px;
-            accent-color: var(--cyan);
-            cursor: pointer; flex-shrink: 0;
-        }
-        .form-check-label {
-            font-size: 0.8rem; color: var(--text-dim); line-height: 1.5;
-        }
-
-        /* Responsive contact layout */
-        @media (max-width: 900px) {
-            .contact-layout {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-            .contact-left .contact-cards {
-                display: grid;
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 540px) {
-            .contact-left .contact-cards {
-                grid-template-columns: 1fr;
-            }
-            .form-row { grid-template-columns: 1fr; }
-        }
     </style>
 </head>
 
@@ -3230,102 +3004,42 @@ Redis Cache:
     <!-- Contact Section -->
     <section id="contact">
         <h2 class="section-title"><span class="sec-num">06</span>Get In Touch</h2>
-        <div class="contact-layout">
-
-            <!-- Left: info + social links -->
-            <div class="contact-left">
-                <div class="open-to-badge">
-                    <i class="fas fa-map-marker-alt"></i>
-                    Dubai, UAE · Open to remote &amp; relocation
-                </div>
-                <h3 class="contact-title">Let's Build Something.</h3>
-                <p class="contact-description">
-                    I'm actively exploring <strong>Senior &amp; Lead Backend Engineer</strong> opportunities —
-                    fintech, AI platforms, crypto infrastructure, or anything with hard distributed systems problems.
-                    Drop me a message and I'll get back within 24 hours.
-                </p>
-                <div class="contact-cards">
-                    <a href="mailto:imankursaurabh@outlook.com" class="contact-card">
-                        <i class="fas fa-envelope"></i>
-                        <span>Email</span>
-                        <small>imankursaurabh@outlook.com</small>
-                    </a>
-                    <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" class="contact-card">
-                        <i class="fab fa-linkedin-in"></i>
-                        <span>LinkedIn</span>
-                        <small>/in/Ankur-Saurabh</small>
-                    </a>
-                    <a href="https://github.com/ankurpython/" target="_blank" class="contact-card">
-                        <i class="fab fa-github"></i>
-                        <span>GitHub</span>
-                        <small>/ankurpython</small>
-                    </a>
-                    <a href="assets/downloads/resume.pdf" download class="contact-card">
-                        <i class="fas fa-file-pdf"></i>
-                        <span>Resume</span>
-                        <small>Download PDF</small>
-                    </a>
-                </div>
+        <div class="contact-content">
+            <div class="open-to-badge">
+                <i class="fas fa-map-marker-alt" style="color:var(--cyan)"></i>
+                Based in <strong>Dubai, UAE</strong> · Open to remote &amp; relocation
             </div>
-
-            <!-- Right: Contact Form -->
-            <div class="contact-form-panel">
-                <div class="form-header">
-                    <p class="form-header-label">// send_message.py</p>
-                    <h4>Start a Conversation</h4>
-                </div>
-
-                <div id="contactForm">
-                    <div class="form-row">
-                        <div>
-                            <label class="form-label" for="cf-name">Your Name *</label>
-                            <input type="text" id="cf-name" class="form-input" placeholder="Jane Smith" autocomplete="name" required>
-                        </div>
-                        <div>
-                            <label class="form-label" for="cf-email">Email Address *</label>
-                            <input type="email" id="cf-email" class="form-input" placeholder="jane@company.com" autocomplete="email" required>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="cf-company">Company / Organisation</label>
-                        <input type="text" id="cf-company" class="form-input" placeholder="Acme Corp (optional)">
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="cf-type">Enquiry Type *</label>
-                        <select id="cf-type" class="form-select" required>
-                            <option value="" disabled selected>Select a topic…</option>
-                            <option value="job">Job / Role Opportunity</option>
-                            <option value="freelance">Freelance / Contract Work</option>
-                            <option value="collab">Open-Source Collaboration</option>
-                            <option value="consulting">Architecture Consulting</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="cf-message">Message *</label>
-                        <textarea id="cf-message" class="form-textarea" placeholder="Tell me about your project, team, or what you're trying to build…" required></textarea>
-                    </div>
-
-                    <div class="form-check-row">
-                        <input type="checkbox" id="cf-consent" class="form-checkbox">
-                        <label for="cf-consent" class="form-check-label">
-                            I'm happy for Ankur to store my details to reply to this message.
-                        </label>
-                    </div>
-
-                    <button type="button" class="form-submit-btn" id="cfSubmitBtn" onclick="handleContactSubmit()">
-                        <span>Send Message</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-
-                    <div id="cfStatus" class="form-status"></div>
-                    <p class="form-note">✦ No spam. Ever. I read every message personally.</p>
-                </div>
+            <h3 class="contact-title">Let's Build Something.</h3>
+            <p class="contact-description">
+                I'm actively exploring <strong>Senior &amp; Lead Backend Engineer</strong> opportunities —
+                fintech, AI platforms, crypto infrastructure, or anything with hard distributed systems problems.
+                If that sounds like your team, I'd love to talk.
+            </p>
+            <a href="mailto:imankursaurabh@outlook.com" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 2.5rem; margin: 2rem 0;">
+                <i class="fas fa-envelope"></i> Say Hello
+            </a>
+            <div class="contact-cards">
+                <a href="mailto:imankursaurabh@outlook.com" class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                    <small>imankursaurabh@outlook.com</small>
+                </a>
+                <a href="https://linkedin.com/in/Ankur-Saurabh/" target="_blank" class="contact-card">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span>LinkedIn</span>
+                    <small>/in/Ankur-Saurabh</small>
+                </a>
+                <a href="https://github.com/ankurpython/" target="_blank" class="contact-card">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub</span>
+                    <small>/ankurpython</small>
+                </a>
+                <a href="assets/downloads/resume.pdf" download class="contact-card">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Resume</span>
+                    <small>Download PDF</small>
+                </a>
             </div>
-
         </div>
     </section>
 
@@ -3886,64 +3600,6 @@ Redis Cache:
             _cardObs.observe(card);
         });
 
-        // ── CONTACT FORM HANDLER ───────────────────────────
-        function handleContactSubmit() {
-            const name    = document.getElementById('cf-name').value.trim();
-            const email   = document.getElementById('cf-email').value.trim();
-            const type    = document.getElementById('cf-type').value;
-            const message = document.getElementById('cf-message').value.trim();
-            const consent = document.getElementById('cf-consent').checked;
-            const status  = document.getElementById('cfStatus');
-            const btn     = document.getElementById('cfSubmitBtn');
-
-            // Basic validation
-            if (!name || !email || !type || !message) {
-                status.className = 'form-status error';
-                status.textContent = '⚠ Please fill in all required fields.';
-                return;
-            }
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                status.className = 'form-status error';
-                status.textContent = '⚠ Please enter a valid email address.';
-                return;
-            }
-            if (!consent) {
-                status.className = 'form-status error';
-                status.textContent = '⚠ Please accept the consent checkbox to continue.';
-                return;
-            }
-
-            // Build mailto link as fallback (no backend on static site)
-            const subject = encodeURIComponent(`[Portfolio] ${type} enquiry from ${name}`);
-            const body = encodeURIComponent(
-                `Name: ${name}\nEmail: ${email}\nCompany: ${document.getElementById('cf-company').value.trim() || 'N/A'}\nType: ${type}\n\nMessage:\n${message}`
-            );
-            const mailtoUrl = `mailto:imankursaurabh@outlook.com?subject=${subject}&body=${body}`;
-
-            // Animate button
-            btn.innerHTML = '<span>Opening mail client…</span><i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-
-            setTimeout(() => {
-                window.location.href = mailtoUrl;
-                status.className = 'form-status success';
-                status.textContent = '✓ Your mail client should open with the message pre-filled. Thank you!';
-                btn.innerHTML = '<span>Message Sent ✓</span><i class="fas fa-check"></i>';
-                btn.style.background = 'var(--mint)';
-            }, 600);
-        }
-
-        // Allow Enter key in inputs (but not textarea) to advance focus
-        document.querySelectorAll('#contactForm .form-input, #contactForm .form-select').forEach(el => {
-            el.addEventListener('keydown', e => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const inputs = Array.from(document.querySelectorAll('#contactForm .form-input, #contactForm .form-select, #contactForm .form-textarea'));
-                    const idx = inputs.indexOf(el);
-                    if (idx < inputs.length - 1) inputs[idx + 1].focus();
-                }
-            });
-        });
 
     </script>
 </body>
